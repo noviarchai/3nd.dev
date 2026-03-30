@@ -25,6 +25,86 @@ Living registry of all OpenClaw skills.
 
 ---
 
+## orchestratorforge
+- **Version:** 1.0
+- **Status:** active
+- **Quality:** 9
+- **Best for:** Coordinating all product-foundry skills (visionforge, buildforge, experienceforge, adminforge, userforge, revenueforge, integrationforge, evolutionforge, shipforge) as one unified build organization
+- **Limitations:** Active only when a project requires full skill coordination; for simple tasks, individual skills can be used directly
+- **Last updated:** 2026-03-30
+
+## visionforge
+- **Version:** 1.0
+- **Status:** active
+- **Quality:** 8
+- **Best for:** Refining raw ideas, expanding features, defining monetization, identifying target audience and differentiation
+- **Limitations:** Outputs are recommendations; requires other skills for actual implementation
+- **Last updated:** 2026-03-30
+
+## buildforge
+- **Version:** 1.0
+- **Status:** active
+- **Quality:** 8
+- **Best for:** Creating technical architecture, system maps, page/feature maps, data models for any digital product
+- **Limitations:** Outputs architecture plans; actual code implementation requires execution
+- **Last updated:** 2026-03-30
+
+## experienceforge
+- **Version:** 1.0
+- **Status:** active
+- **Quality:** 8
+- **Best for:** UX improvements, onboarding design, friction reduction, trust signals, premium polish
+- **Limitations:** Provides recommendations; implementation depends on buildforge
+- **Last updated:** 2026-03-30
+
+## adminforge
+- **Version:** 1.0
+- **Status:** active
+- **Quality:** 8
+- **Best for:** Building complete admin panels with user management, billing controls, Stripe test/live mode, feature toggles, analytics
+- **Limitations:** Design focus; requires buildforge for implementation
+- **Last updated:** 2026-03-30
+
+## userforge
+- **Version:** 1.0
+- **Status:** active
+- **Quality:** 8
+- **Best for:** Building user dashboards, account management, billing portals, onboarding flows, plan-based feature access
+- **Limitations:** Design focus; requires buildforge for implementation
+- **Last updated:** 2026-03-30
+
+## revenueforge
+- **Version:** 1.0
+- **Status:** active
+- **Quality:** 8
+- **Best for:** Monetization strategy, pricing models, Stripe integration architecture, ad/affiliate systems
+- **Limitations:** Strategy and architecture; requires buildforge for implementation
+- **Last updated:** 2026-03-30
+
+## integrationforge
+- **Version:** 1.0
+- **Status:** active
+- **Quality:** 8
+- **Best for:** System coherence validation, finding orphaned features, broken connections, cross-system logic verification
+- **Limitations:** Audit focus; requires implementation fixes from buildforge/evolutionforge
+- **Last updated:** 2026-03-30
+
+## evolutionforge
+- **Version:** 1.0
+- **Status:** active
+- **Quality:** 8
+- **Best for:** Safely adding features to existing products, redesigns, tech stack upgrades, dependency-aware changes
+- **Limitations:** Process focus; actual implementation requires execution
+- **Last updated:** 2026-03-30
+
+## shipforge
+- **Version:** 1.0
+- **Status:** active
+- **Quality:** 8
+- **Best for:** Pre-launch QA, audit, hardening, release-readiness review, identifying missing pieces
+- **Limitations:** Audit focus; fixes require work by other skills
+- **Last updated:** 2026-03-30
+
 ## product-foundry
 - **Version:** 1.0
 - **Status:** active
