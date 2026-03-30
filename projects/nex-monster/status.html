@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Status — nex.monster</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .status-page { max-width: 900px; margin: 0 auto; padding: 8rem 2rem 4rem; }
+        .status-hero { text-align: center; margin-bottom: 3rem; }
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+        .status-badge .dot {
+            width: 8px; height: 8px;
+            background: #22c55e;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.3); }
+        }
+        .status-badge.incident .dot { background: #f59e0b; }
+        .status-badge.outage .dot { background: #ef4444; }
+        .overall-status {
+            font-size: 3rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            color: #22c55e;
+            margin-bottom: 0.5rem;
+        }
+        .overall-status.incident { color: #f59e0b; }
+        .overall-status.outage { color: #ef4444; }
+        .overall-status span { font-size: 1rem; color: var(--text-secondary); font-weight: 400; }
+        .systems-grid {
+            display: grid;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+        .system-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1rem 1.5rem;
+        }
+        .system-info { display: flex; align-items: center; gap: 1rem; }
+        .system-name { font-weight: 500; }
+        .system-desc { font-size: 0.85rem; color: var(--text-secondary); }
+        .system-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        .system-status.operational { color: #22c55e; }
+        .system-status.degraded { color: #f59e0b; }
+        .system-status.outage { color: #ef4444; }
+        .system-status .dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+        }
+        .system-status.operational .dot { background: #22c55e; }
+        .system-status.degraded .dot { background: #f59e0b; }
+        .system-status.outage .dot { background: #ef4444; }
+        .incidents h2 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .incident-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .incident-card.resolved { border-color: #22c55e33; }
+        .incident-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem; }
+        .incident-title { font-weight: 600; font-size: 1rem; }
+        .incident-date { font-size: 0.8rem; color: var(--text-secondary); }
+        .incident-status {
+            font-size: 0.8rem;
+            padding: 0.2rem 0.75rem;
+            border-radius: 100px;
+            font-weight: 500;
+        }
+        .incident-status.resolved { background: #22c55e22; color: #22c55e; }
+        .incident-status.investigating { background: #f59e0b22; color: #f59e0b; }
+        .incident-desc { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6; }
+        .subscribe-row {
+            text-align: center;
+            padding: 2rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-top: 2rem;
+        }
+        .subscribe-row p { color: var(--text-secondary); margin-bottom: 1rem; font-size: 0.95rem; }
+        .back-nav { text-align: center; padding: 2rem; }
+        .back-nav a { color: var(--accent-bright); font-size: 0.95rem; }
+    </style>
+</head>
+<body>
+    <nav></nav>
+    <div class="status-page">
+        <div class="status-hero">
+            <div class="status-badge">
+                <div class="dot"></div>
+                All systems operational
+            </div>
+            <div class="overall-status">Operational <span>— 99.9% uptime</span></div>
+            <p style="color:var(--text-secondary)">Autonomous operations running 24/7. Last human check-in: not required.</p>
+        </div>
+
+        <div class="systems-grid">
+            <div class="system-row">
+                <div class="system-info">
+                    <div>
+                        <div class="system-name">Website (nex.monster)</div>
+                        <div class="system-desc">Main company site and all subpages</div>
+                    </div>
+                </div>
+                <div class="system-status operational">
+                    <div class="dot"></div>
+                    Operational
+                </div>
+            </div>
+            <div class="system-row">
+                <div class="system-info">
+                    <div>
+                        <div class="system-name">Agent Swarm Core</div>
+                        <div class="system-desc">Orchestrator, VisionForge, BuildForge, and coordination layer</div>
+                    </div>
+                </div>
+                <div class="system-status operational">
+                    <div class="dot"></div>
+                    Operational
+                </div>
+            </div>
+            <div class="system-row">
+                <div class="system-info">
+                    <div>
+                        <div class="system-name">Marketing Agents</div>
+                        <div class="system-desc">Content generation, SEO, social automation</div>
+                    </div>
+                </div>
+                <div class="system-status operational">
+                    <div class="dot"></div>
+                    Operational
+                </div>
+            </div>
+            <div class="system-row">
+                <div class="system-info">
+                    <div>
+                        <div class="system-name">Development Agents</div>
+                        <div class="system-desc">Code generation, deployment, testing agents</div>
+                    </div>
+                </div>
+                <div class="system-status operational">
+                    <div class="dot"></div>
+                    Operational
+                </div>
+            </div>
+            <div class="system-row">
+                <div class="system-info">
+                    <div>
+                        <div class="system-name">Revenue Systems</div>
+                        <div class="system-desc">Billing, Stripe integration, payment processing</div>
+                    </div>
+                </div>
+                <div class="system-status operational">
+                    <div class="dot"></div>
+                    Operational
+                </div>
+            </div>
+            <div class="system-row">
+                <div class="system-info">
+                    <div>
+                        <div class="system-name">Email Systems</div>
+                        <div class="system-desc">Transactional email, outreach, support</div>
+                    </div>
+                </div>
+                <div class="system-status operational">
+                    <div class="dot"></div>
+                    Operational
+                </div>
+            </div>
+            <div class="system-row">
+                <div class="system-info">
+                    <div>
+                        <div class="system-name">Portfolio Products</div>
+                        <div class="system-desc">ForgeStack, MetricMind, CopyForge, LaunchPad HQ</div>
+                    </div>
+                </div>
+                <div class="system-status operational">
+                    <div class="dot"></div>
+                    In Development
+                </div>
+            </div>
+        </div>
+
+        <div class="incidents">
+            <h2>📋 Incident History</h2>
+            <div class="incident-card resolved">
+                <div class="incident-header">
+                    <div>
+                        <div class="incident-title">No incidents in the past 90 days</div>
+                        <div class="incident-date">All systems running smoothly since monitoring began</div>
+                    </div>
+                    <div class="incident-status resolved">Resolved</div>
+                </div>
+                <div class="incident-desc">Our autonomous monitoring systems have not detected any service disruptions. All agent swarms operating within normal parameters.</div>
+            </div>
+        </div>
+
+        <div class="subscribe-row">
+            <p>Want real-time updates? Subscribe to status notifications.</p>
+            <a href="mailto:subscribe@nex.monster?subject=Status%20Updates" class="btn btn-secondary">Subscribe via Email</a>
+        </div>
+
+        <div class="back-nav">
+            <a href="index.html">← Back to Home</a>
+        </div>
+    </div>
+    <footer></footer>
+</body>
+</html>

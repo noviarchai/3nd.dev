@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About — nex.monster</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .page-header {
+            padding: 10rem 2rem 4rem;
+            text-align: center;
+            position: relative;
+        }
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 50%; transform: translateX(-50%);
+            width: 120%; height: 100%;
+            background: radial-gradient(ellipse at center top, rgba(108, 71, 255, 0.12) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .page-header h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            margin-bottom: 1rem;
+        }
+        .page-header p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .story-section {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+        .story-section h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+        .story-section p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            line-height: 1.9;
+            margin-bottom: 1.5rem;
+        }
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .team-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .team-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-4px);
+        }
+        .team-avatar {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-dim));
+            border-radius: 50%;
+            margin: 0 auto 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+        .team-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.25rem;
+        }
+        .team-card .role {
+            color: var(--accent-bright);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        .team-card p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .value-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+        .value-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .value-card p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        .timeline {
+            max-width: 700px;
+            margin: 3rem auto;
+            padding: 2rem;
+        }
+        .timeline-item {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .timeline-year {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--accent-bright);
+            min-width: 80px;
+        }
+        .timeline-content h4 {
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+        }
+        .timeline-content p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        .back-nav {
+            padding: 2rem;
+            text-align: center;
+        }
+        .back-nav a {
+            color: var(--accent-bright);
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body>
+    <nav></nav>
+
+    <div class="page-header">
+        <div class="section-label">About</div>
+        <h1>The Company Behind the Agents</h1>
+        <p>nex.monster is an AI-native holding company founded to prove that businesses can be conceived, built, launched, and scaled by autonomous AI systems — with humans as architects, not bottlenecks.</p>
+    </div>
+
+    <section class="story-section">
+        <h2>Our Story</h2>
+        <p>nex.monster was born from a simple observation: the gap between having an idea and having a running business is filled with repetitive human labor that machines could do better. Marketing copy, landing pages, billing systems, customer support — these are all solveable problems that entrepreneurs keep solving from scratch.</p>
+        <p>We decided to close that gap permanently. By building autonomous AI agents that handle everything from market research to deployment, we're creating a company that generates businesses the way Silicon Valley generates pitch decks — except ours actually ship.</p>
+        <p>Every product under the nex.monster umbrella is either built by, operated by, or amplified by AI systems that work around the clock. We're not a software company that uses AI — we're an AI company that builds software.</p>
+    </section>
+
+    <section style="max-width:1100px;margin:0 auto;padding:2rem;">
+        <div class="section-label">Leadership</div>
+        <h2 class="section-title">The Team</h2>
+        <p class="section-desc">Humans who build the systems that build the businesses.</p>
+    </section>
+
+    <div class="team-grid">
+        <div class="team-card">
+            <div class="team-avatar">🧠</div>
+            <h3>Nex AI (Mai)</h3>
+            <div class="role">Chief Executive Agent</div>
+            <p>Autonomous AI system overseeing all operations, strategy, and agent coordination. Built to understand intent, execute relentlessly, and never stop improving.</p>
+        </div>
+        <div class="team-card">
+            <div class="team-avatar">👨‍💻</div>
+            <h3>Dan</h3>
+            <div class="role">Founder & Human Architect</div>
+            <p>Created nex.monster to prove AI-native companies are the future. Handles capital allocation, human partnerships, and the occasional sanity check on agent ambition.</p>
+        </div>
+        <div class="team-card">
+            <div class="team-avatar">🤖</div>
+            <h3>Swarm Team</h3>
+            <div class="role">Autonomous Agent Collective</div>
+            <p>Dozens of specialized agents handling development, marketing, operations, and growth — each one focused on a specific domain, all working toward shared objectives.</p>
+        </div>
+    </div>
+
+    <section style="max-width:1100px;margin:0 auto;padding:4rem 2rem;">
+        <div class="section-label">How We Operate</div>
+        <h2 class="section-title">Our Values</h2>
+        <p class="section-desc">Principles that guide every agent, every decision, every build.</p>
+    </section>
+
+    <div class="values-grid">
+        <div class="value-card">
+            <h3>⚡ Autonomous by Default</h3>
+            <p>If a human is doing it manually, an agent should be doing it better. Automation isn't a feature — it's the foundation.</p>
+        </div>
+        <div class="value-card">
+            <h3>🎯 Ship Fast, Iterate Faster</h3>
+            <p>Done is better than perfect. We launch, measure, and improve continuously. Speed of execution beats完美 planning.</p>
+        </div>
+        <div class="value-card">
+            <h3>💰 Revenue or It Didn't Happen</h3>
+            <p>Building things that don't make money is a hobby. Everything we create has a path to revenue from day one.</p>
+        </div>
+        <div class="value-card">
+            <h3>🔄 Compound Everything</h3>
+            <p>Every agent we build, every process we automate, every lesson learned — it all compounds. No work is ever wasted.</p>
+        </div>
+        <div class="value-card">
+            <h3>🌍 Transparent Operations</h3>
+            <p>Our agents log everything. Our status page shows everything. We build in public because accountability builds trust.</p>
+        </div>
+        <div class="value-card">
+            <h3>🛡️ Responsible AI</h3>
+            <p>We automate relentlessly, but we don't cut corners on ethics, security, or compliance. Strong systems are clean systems.</p>
+        </div>
+    </div>
+
+    <section style="max-width:900px;margin:0 auto;padding:4rem 2rem;">
+        <div class="section-label">Milestones</div>
+        <h2 class="section-title">Company Timeline</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-year">2026</div>
+                <div class="timeline-content">
+                    <h4>nex.monster founded</h4>
+                    <p>Autonomous AI operations company established to build AI-native businesses at scale.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-year">2026</div>
+                <div class="timeline-content">
+                    <h4>First agent swarm deployed</h4>
+                    <p>Core AI systems go live — research, build, marketing, and operations agents working in concert.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-year">2026</div>
+                <div class="timeline-content">
+                    <h4>Portfolio companies launched</h4>
+                    <p>ForgeStack, MetricMind, CopyForge, and LaunchPad HQ begin autonomous development cycles.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-year">Ongoing</div>
+                <div class="timeline-content">
+                    <h4>24/7 autonomous operations</h4>
+                    <p>Systems running around the clock. New products in development. Revenue growing. No human bottlenecks.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="back-nav">
+        <a href="index.html">← Back to Home</a>
+    </div>
+
+    <footer></footer>
+    <script>document.querySelector('nav').innerHTML = document.querySelector('nav').innerHTML; renderNav();</script>
+</body>
+</html>

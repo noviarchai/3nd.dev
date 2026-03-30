@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 — Page Not Found — nex.monster</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .error-page {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+        }
+        .error-code {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(6rem, 20vw, 12rem);
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent), var(--gradient-end));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+        .error-page h1 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+        .error-page p {
+            color: var(--text-secondary);
+            max-width: 400px;
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+        .agent-error {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem 2rem;
+            margin-bottom: 2rem;
+            max-width: 400px;
+        }
+        .agent-error .label {
+            font-size: 0.75rem;
+            color: var(--accent-bright);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+        .agent-error p {
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="error-page">
+        <div class="error-code">404</div>
+        <h1>Page Not Found</h1>
+        <p>The page you're looking for doesn't exist. Either it moved, was deleted, or never existed. Even our agents couldn't find it — and they're thorough.</p>
+
+        <div class="agent-error">
+            <div class="label">Agent Log</div>
+            <p>"Searched entire server. Checked /past, /present, /future. Result: 404 — the only thing we didn't find was an excuse for this error."</p>
+        </div>
+
+        <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;">
+            <a href="index.html" class="btn btn-primary">← Go Home</a>
+            <a href="index.html#contact" class="btn btn-secondary">Report Issue</a>
+        </div>
+    </div>
+</body>
+</html>
