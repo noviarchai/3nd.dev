@@ -45,6 +45,16 @@ Living registry of all OpenClaw skills.
 
 ---
 
+## webinfraforge
+- **Version:** 1.0
+- **Status:** active
+- **Quality:** 9
+- **Best for:** VPS/server operations, DNS/domain setup, SSL certificates, nginx/apache, reverse proxies, email setup, deployment, troubleshooting 502/404/SSL errors, cPanel, SSH, firewalls, hardening, database basics
+- **Limitations:** Does not cover deep database administration; specialized hosting (Kubernetes, serverless) not covered
+- **Last updated:** 2026-03-30
+
+---
+
 ## intentamplifier
 - **Version:** 1.0
 - **Status:** active
