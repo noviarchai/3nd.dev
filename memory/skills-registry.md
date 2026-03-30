@@ -25,6 +25,16 @@ Living registry of all OpenClaw skills.
 
 ---
 
+## dancore
+- **Version:** 1.0
+- **Status:** active
+- **Quality:** 9
+- **Best for:** Master command center — interprets Dan's messy input, amplifies intent, routes to correct skills/agents/swarms. Contains and coordinates DanSync + IntentAmplifier internally. Use for any Dan request that needs interpretation, routing, or execution preparation.
+- **Limitations:** Execution still routes to other skills; DanCore is the interpreter/amplifier/router, not the executor
+- **Last updated:** 2026-03-30
+
+---
+
 ## intentamplifier
 - **Version:** 1.0
 - **Status:** active
