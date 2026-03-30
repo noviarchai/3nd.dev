@@ -25,6 +25,16 @@ Living registry of all OpenClaw skills.
 
 ---
 
+## profitmind
+- **Version:** 1.0
+- **Status:** active
+- **Quality:** 8
+- **Best for:** Revenue optimization, pricing decisions, business model analysis, kill/pivot decisions, opportunity detection, resource allocation toward high-ROI tasks
+- **Limitations:** No live data feeds; recommendations require human context for final decisions; assumes alignment with user's actual business goals
+- **Last updated:** 2026-03-30
+
+---
+
 ## swarmforge
 - **Version:** 1.0
 - **Status:** active
