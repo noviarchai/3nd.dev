@@ -25,6 +25,16 @@ Living registry of all OpenClaw skills.
 
 ---
 
+## product-foundry
+- **Version:** 1.0
+- **Status:** active
+- **Quality:** 9
+- **Best for:** Building complete products/systems from raw ideas — websites, SaaS, web apps, admin systems, games, platforms, digital companies. Orchestrates 9 swarms for vision, build, UX, admin, user area, monetization, integration, evolution, QA.
+- **Limitations:** Overkill for simple tasks; requires substantial project scope to justify 9-swarm orchestration; depends on SwarmForge being available
+- **Last updated:** 2026-03-30
+
+---
+
 ## profitmind
 - **Version:** 1.0
 - **Status:** active
