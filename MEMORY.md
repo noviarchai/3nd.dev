@@ -15,28 +15,30 @@
 
 ## System Setup (2026-03-29)
 - SSD mounted at /mnt/ssd (ext4, 953.9GB)
+- Swap enabled: 12GB on SSD + 2GB ZRAM = 14GB total swap
+- fstab configured for auto-mount on boot
 - Memory system: /mnt/ssd/mai_memory/
   - short_term/ - active context
   - long_term/ - persistent knowledge
   - secure/ - encrypted credentials
   - search_index/ - fast lookup
   - backups/ - versioned backups
-  - skills/ - created skills
-- Memory script: mai_memory.sh
-
-## Credentials (Secure Vault)
-- Stored encrypted in /mnt/ssd/mai_memory/secure/
-- Never expose in logs or outputs
+  - mai_memory.db - SQLite database
+- OpenClaw skill installed: mai-memory (/home/pi/.openclaw/skills/mai-memory/)
+- Daily maintenance cron at 3am
 
 ## Skills Created
-- mai_memory.sh - core memory management
+- mai_memory.sh - bash memory CLI
+- memory_manager.py - Python memory API
+- mai-memory/ - OpenClaw skill wrapper (store, search, list, get, update, delete)
 
-## System Optimizations
-- Swapfile on SSD (12.8GB)
-- Logs redirected to /mnt/ssd/nginx_logs
-- Ollama on SSD for local AI
+## SSD Contents (2026-03-29)
+- mai_memory/ - Mai's brain
+- swapfile (12GB)
+- lost+found/ (system)
 
 ## Notes
 - Always use SSD for data-heavy ops (not SD card)
 - SD card is system only
 - Keep things lightweight (Raspberry Pi)
+- Memory skill auto-triggers on "remember", "store", "search memories"
