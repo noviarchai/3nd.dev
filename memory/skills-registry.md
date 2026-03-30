@@ -25,6 +25,16 @@ Living registry of all OpenClaw skills.
 
 ---
 
+## dansync
+- **Version:** 1.0
+- **Status:** active
+- **Quality:** 9
+- **Best for:** Understanding Dan's messy/fast input, intent translation, filling implied requirements, routing to correct skills, ensuring god-tier output expectations
+- **Limitations:** Not an execution skill — prepares intent for other skills
+- **Last updated:** 2026-03-30
+
+---
+
 ## orchestratorforge
 - **Version:** 1.0
 - **Status:** active
