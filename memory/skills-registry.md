@@ -25,6 +25,16 @@ Living registry of all OpenClaw skills.
 
 ---
 
+## intentamplifier
+- **Version:** 1.0
+- **Status:** active
+- **Quality:** 8
+- **Best for:** Expanding DanSync's structured intent into complete, god-tier, execution-ready form; adding missing components; elevating quality
+- **Limitations:** Requires DanSync output as input; not an execution skill itself
+- **Last updated:** 2026-03-30
+
+---
+
 ## dansync
 - **Version:** 1.0
 - **Status:** active
