@@ -25,6 +25,16 @@ Living registry of all OpenClaw skills.
 
 ---
 
+## neverstuck
+- **Version:** 1.0
+- **Status:** active
+- **Quality:** 9
+- **Best for:** Any task that hits a wall — captchas, bot protection, login walls, rate limits, broken flows, access barriers. Multi-path routing + connector building + pattern memory.
+- **Limitations:** Still requires API keys for captcha solvers (capmonster, capsolver, 2captcha); some barriers may need human step once
+- **Last updated:** 2026-03-30
+
+---
+
 ## dancore
 - **Version:** 1.0
 - **Status:** active
