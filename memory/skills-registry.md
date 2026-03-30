@@ -1,0 +1,34 @@
+# Skills Registry
+
+Living registry of all OpenClaw skills.
+
+## Format
+```
+## skill-name
+- **Version:** X.Y
+- **Status:** active|deprecated|experimental|under-repair
+- **Quality:** 1-10
+- **Best for:** use case 1, use case 2
+- **Limitations:** known issues, edge cases
+- **Last updated:** YYYY-MM-DD
+```
+
+---
+
+## skillforge
+- **Version:** 1.0
+- **Status:** active
+- **Quality:** 9
+- **Best for:** Creating new skills, improving existing skills, skill gap detection, skill auditing
+- **Limitations:** Does not auto-detect gaps (requires trigger); verification requires human judgment for subjective quality
+- **Last updated:** 2026-03-30
+
+---
+
+## skill-creator
+- **Version:** 1.0
+- **Status:** active
+- **Quality:** 8
+- **Best for:** Creating new skills from scratch, editing existing skills, validating skill structure
+- **Limitations:** Template-focused; doesn't handle complex multi-skill workflows
+- **Last updated:** 2026-03-30
