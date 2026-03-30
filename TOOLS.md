@@ -38,3 +38,34 @@ Skills are shared. Your setup is yours. Keeping them apart means you can update 
 ---
 
 Add whatever helps you do your job. This is your cheat sheet.
+
+## Email — nex.monster
+
+**VPS:** root@203.161.55.37
+**Credentials on VPS:** /opt/nex.monster/mail/.credentials
+
+### Accounts
+| Email | Purpose | Password |
+|-------|---------|---------|
+| hello@nex.monster | General inquiries | S41XGiTfqXF47x |
+| mai.hairuki@nex.monster | Mai's company email | S41XGiTfqXF47x |
+
+### Server
+| Setting | Value |
+|---------|-------|
+| IMAP | premium340.web-hosting.com:993 |
+| SMTP | premium340.web-hosting.com:465 (TLS) |
+
+### Send Email (from VPS)
+```bash
+# Using msmtp directly
+echo "Body text" | msmtp --file=/etc/msmtp/msmtp.conf --account=nex.monster --from=hello@nex.monster -- recipient@email.com
+
+# Or use nexmail script
+nexmail -t recipient@email.com -s "Subject" -b "Body" -f hello@nex.monster
+```
+
+### Check Email
+```bash
+mutt -f imaps://mai.hairuki@premium340.web-hosting.com:993
+```
