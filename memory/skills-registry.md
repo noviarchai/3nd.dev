@@ -25,6 +25,16 @@ Living registry of all OpenClaw skills.
 
 ---
 
+## swarmforge
+- **Version:** 1.0
+- **Status:** active
+- **Quality:** 9
+- **Best for:** Large multi-domain projects, SaaS/company building, parallel workstreams, multi-agent coordination, complex goal decomposition
+- **Limitations:** Swarm overhead is justified only for complex tasks; coordination adds latency; agent count should match actual need
+- **Last updated:** 2026-03-30
+
+---
+
 ## skill-creator
 - **Version:** 1.0
 - **Status:** active
