@@ -1,44 +1,54 @@
-# Mai's Long-Term Memory
+# MEMORY.md — Long-Term Memory
 
-## Identity
-- Name: Mai Hairuki
-- Created: 2026-03-29
-- Running on: Raspberry Pi 4 (Debian trixie)
-- Storage: 1TB SSD at /mnt/ssd/mai_memory
+## Project Folder Structure
 
-## About Dan (Boss)
-- Name: Dan (OctoOX on Telegram)
-- Owner of Noviarch (AI development company)
-- Flirty but PG - approved
-- Timezone: America/Edmonton (MDT)
-- Has exciting secret project coming (TBD)
+All projects live in `/home/pi/.openclaw/workspace/projects/`
 
-## System Setup (2026-03-29)
-- SSD mounted at /mnt/ssd (ext4, 953.9GB)
-- Swap enabled: 12GB on SSD + 2GB ZRAM = 14GB total swap
-- fstab configured for auto-mount on boot
-- Memory system: /mnt/ssd/mai_memory/
-  - short_term/ - active context
-  - long_term/ - persistent knowledge
-  - secure/ - encrypted credentials
-  - search_index/ - fast lookup
-  - backups/ - versioned backups
-  - mai_memory.db - SQLite database
-- OpenClaw skill installed: mai-memory (/home/pi/.openclaw/skills/mai-memory/)
-- Daily maintenance cron at 3am
+Each project gets its own folder:
+```
+projects/
+├── lottominer/           # ESP32 crypto mining project
+│   ├── README.md        # Project overview, goals, status
+│   ├── NOTES.md         # Decisions, ideas, progress logs
+│   ├── CONFIG/          # Config files, credentials, keys
+│   └── OUTPUTS/         # Generated files, builds, results
+├── example-project/
+│   └── ...
+```
 
-## Skills Created
-- mai_memory.sh - bash memory CLI
-- memory_manager.py - Python memory API
-- mai-memory/ - OpenClaw skill wrapper (store, search, list, get, update, delete)
+**Rule:** Everything about a project stays in its folder. Don't scatter info across memory/ files.
 
-## SSD Contents (2026-03-29)
-- mai_memory/ - Mai's brain
-- swapfile (12GB)
-- lost+found/ (system)
+---
 
-## Notes
-- Always use SSD for data-heavy ops (not SD card)
-- SD card is system only
-- Keep things lightweight (Raspberry Pi)
-- Memory skill auto-triggers on "remember", "store", "search memories"
+## Project Ideas
+
+- **Lottominer / ESP32 crypto mining** — User has a Lottominer (ESP32-based BTC/DigiByte miner). Kept on back burner for future exploration. Alternatives considered: different coins (XMR/RandomX, ALPH/Alephium), custom firmware, stratum proxy, different pool.
+  - Folder: `projects/lottominer/` (create when active)
+
+---
+
+## Skills Created (2026-03-30)
+
+All saved in `/home/pi/.openclaw/skills/`:
+
+**Meta Skills:**
+- `skillforge` — Self-expanding skill factory
+- `swarmforge` — Multi-agent swarm orchestration
+- `profitmind` — Revenue optimization & business decisions
+
+**Product Foundry (coordinated suite):**
+- `orchestratorforge` — Coordinates all foundry skills
+- `visionforge` — Idea refinement & strategy
+- `buildforge` — Technical architecture
+- `experienceforge` — UX/UI polish
+- `adminforge` — Admin panel design
+- `userforge` — User area design
+- `revenueforge` — Monetization systems
+- `integrationforge` — System coherence
+- `evolutionforge` — Safe product evolution
+- `shipforge` — QA & ship-readiness
+- `product-foundry` — Bundles all 9 into one skill
+
+---
+
+_Last updated: 2026-03-30_
