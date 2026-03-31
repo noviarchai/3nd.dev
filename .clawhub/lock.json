@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "skills": {
+    "domain-name-checker": {
+      "version": "1.0.1",
+      "installedAt": 1774899994618
+    },
+    "stealth-browser": {
+      "version": "1.0.0",
+      "installedAt": 1774906285512
+    },
+    "capsolver-captcha-solver": {
+      "version": "1.0.1",
+      "installedAt": 1774906306099
+    },
+    "agent-browser-stealth": {
+      "version": "1.0.2",
+      "installedAt": 1774906324831
+    },
+    "capmonster": {
+      "version": "1.0.0",
+      "installedAt": 1774906345087
+    },
+    "auto-captcha-solver": {
+      "version": "1.0.0",
+      "installedAt": 1774906366432
+    },
+    "browser-automation-stealth": {
+      "version": "1.0.0",
+      "installedAt": 1774906383928
+    },
+    "agent-stealth-scraper": {
+      "version": "1.0.0",
+      "installedAt": 1774906403535
+    },
+    "mia-twitter-stealth": {
+      "version": "1.0.0",
+      "installedAt": 1774906421660
+    },
+    "2captcha": {
+      "version": "1.0.0",
+      "installedAt": 1774906433175
+    }
+  }
+}

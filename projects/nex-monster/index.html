@@ -25,13 +25,15 @@
             --success: #22c55e;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
+        html { scroll-behavior: smooth; min-width: 100vw; overflow-x: hidden; }
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background: var(--bg-primary);
             color: var(--text-primary);
             line-height: 1.6;
             overflow-x: hidden;
+            min-width: 100vw;
+            width: 100%;
         }
         h1, h2, h3, h4, h5, h6 {
             font-family: 'Space Grotesk', sans-serif;
@@ -285,8 +287,10 @@
 
         /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
+            html, body { min-width: 100vw; width: 100vw; overflow-x: hidden; }
+            nav { padding: 1rem 1.25rem; }
             .nav-links { display: none; }
-            .hamburger { display: flex; }
+            .hamburger { display: flex; margin-left: auto; }
             .hero h1 { font-size: 2.2rem; }
             .hero p { font-size: 1rem; }
             .stats-grid { grid-template-columns: repeat(2, 1fr); }
