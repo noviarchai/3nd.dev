@@ -1,0 +1,39 @@
+/* History Page */
+
+.history-page {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.filters {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-end;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.filter-group .form-select {
+  min-width: 150px;
+}
+
+.workflow-name {
+  font-weight: 500;
+}
+
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.pagination-controls {
+  display: flex;
+  gap: 0.5rem;
+}

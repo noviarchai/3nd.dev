@@ -1,0 +1,98 @@
+/* Admin Dashboard */
+
+.admin-dashboard {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.admin-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.admin-stats .stat-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.admin-stats .stat-icon {
+  font-size: 2rem;
+}
+
+.admin-stats .stat-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  display: block;
+}
+
+.admin-stats .stat-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+/* Tabs */
+.admin-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.5rem;
+}
+
+.tab {
+  padding: 0.75rem 1.5rem;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  transition: all 0.2s;
+}
+
+.tab:hover {
+  background: var(--bg-elevated);
+  color: var(--text-primary);
+}
+
+.tab.active {
+  background: var(--primary);
+  color: white;
+}
+
+/* Plan Distribution */
+.plan-distribution {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.plan-item {
+  background: var(--bg-elevated);
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.plan-name {
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.plan-count {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .admin-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
