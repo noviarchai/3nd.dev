@@ -42,8 +42,14 @@
 - **MetricMind** — Metric tracking SaaS idea (mentioned once)
 - **ForgeStack** — Mentioned once, details TBD
 
+## DanCore (2026-03-30)
+Master user-alignment skill already implemented at `~/.openclaw/skills/dancore/SKILL.md`
+Central command center — interprets Dan's intent, amplifies requests, routes to correct systems.
+Contains DanSync + IntentAmplifier layers internally.
+
 ## God-Tier Product Foundry (2026-03-30)
 Dan uploaded a comprehensive 9-swarm build system. Full docs: `/home/pi/.openclaw/workspace/GOD_TIER_PRODUCT_FOUNDRY.md`
+Saved to: `/home/pi/.openclaw/workspace/GOD_TIER_PRODUCT_FOUNDRY.md`
 
 **The 9 Swarms:**
 1. Vision/Strategy/Value Expansion — refine concepts, design monetization
