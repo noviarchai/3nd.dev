@@ -13,7 +13,11 @@ router.post('/:endpoint_path', (req, res) => {
   
   // Find webhook endpoint
   const endpoint = db.prepare(`
-    SELECT we.*, w.* as workflow_data, u.id as user_id
+    SELECT we.*, w.id as w_id, w.user_id as w_user_id, w.name as w_name, w.description as w_description,
+           w.trigger_app, w.trigger_type, w.trigger_config as w_trigger_config, w.actions as w_actions,
+           w.is_active as w_is_active, w.is_test as w_is_test, w.total_runs as w_total_runs,
+           w.last_run_at as w_last_run_at, w.created_at as w_created_at, w.updated_at as w_updated_at,
+           u.id as user_id
     FROM webhook_endpoints we
     JOIN workflows w ON we.workflow_id = w.id
     JOIN users u ON w.user_id = u.id
@@ -47,8 +51,8 @@ router.post('/:endpoint_path', (req, res) => {
   const executionEngine = require('../services/execution-engine');
   const workflow = {
     ...endpoint,
-    trigger_config: JSON.parse(endpoint.workflow_data.trigger_config || '{}'),
-    actions: JSON.parse(endpoint.workflow_data.actions || '[]')
+    trigger_config: JSON.parse(endpoint.w_trigger_config || '{}'),
+    actions: JSON.parse(endpoint.w_actions || '[]')
   };
   
   // Async execution, don't block response

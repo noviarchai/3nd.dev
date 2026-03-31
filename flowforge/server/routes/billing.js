@@ -3,7 +3,6 @@ const { getDb } = require('../db');
 const { authMiddleware } = require('../middleware/auth');
 
 const router = express.Router();
-router.use(authMiddleware);
 
 // Plan definitions
 const PLANS = {
@@ -13,10 +12,13 @@ const PLANS = {
   business: { name: 'Business', price: 99, exec_limit: 100000, workflows: Infinity }
 };
 
-// Get available plans
+// Get available plans (PUBLIC - no auth required)
 router.get('/plans', (req, res) => {
   res.json({ plans: PLANS });
 });
+
+// All routes below require authentication
+router.use(authMiddleware);
 
 // Get current subscription
 router.get('/subscription', (req, res) => {

@@ -85,6 +85,21 @@ function AppRoutes() {
           <Layout admin><AdminDashboard /></Layout>
         </ProtectedRoute>
       } />
+      <Route path="/admin/users" element={
+        <ProtectedRoute adminOnly>
+          <Layout admin><AdminDashboard initialTab="users" /></Layout>
+        </ProtectedRoute>
+      } />
+      <Route path="/admin/workflows" element={
+        <ProtectedRoute adminOnly>
+          <Layout admin><AdminDashboard initialTab="executions" /></Layout>
+        </ProtectedRoute>
+      } />
+      <Route path="/admin/integrations" element={
+        <ProtectedRoute adminOnly>
+          <Layout admin><AdminDashboard initialTab="integrations" /></Layout>
+        </ProtectedRoute>
+      } />
       
       {/* Catch all */}
       <Route path="*" element={<Navigate to="/" replace />} />

@@ -3,15 +3,22 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import './Dashboard.css';
 
-export default function AdminDashboard() {
+export default function AdminDashboard({ initialTab = 'overview' }) {
   const { token } = useAuth();
   const [stats, setStats] = useState(null);
+  const [users, setUsers] = useState([]);
+  const [executions, setExecutions] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState('overview');
+  const [activeTab, setActiveTab] = useState(initialTab);
 
   useEffect(() => {
     fetchStats();
   }, []);
+
+  useEffect(() => {
+    if (activeTab === 'users') fetchUsers();
+    if (activeTab === 'executions') fetchExecutions();
+  }, [activeTab]);
 
   const fetchStats = async () => {
     try {
@@ -26,6 +33,34 @@ export default function AdminDashboard() {
       console.error('Failed to fetch stats:', err);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const fetchUsers = async () => {
+    try {
+      const res = await fetch('/api/admin/users', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setUsers(data.users || []);
+      }
+    } catch (err) {
+      console.error('Failed to fetch users:', err);
+    }
+  };
+
+  const fetchExecutions = async () => {
+    try {
+      const res = await fetch('/api/admin/executions?limit=100', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setExecutions(data.executions || []);
+      }
+    } catch (err) {
+      console.error('Failed to fetch executions:', err);
     }
   };
 
@@ -153,13 +188,67 @@ export default function AdminDashboard() {
 
         {activeTab === 'users' && (
           <div className="users-section">
-            <p className="text-muted">User management coming soon. View all users via API.</p>
+            <h3>All Users ({users.length})</h3>
+            <div className="table-container">
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th>Email</th>
+                    <th>Name</th>
+                    <th>Plan</th>
+                    <th>Executions Used</th>
+                    <th>Exec Limit</th>
+                    <th>Admin</th>
+                    <th>Created</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {users.map(u => (
+                    <tr key={u.id}>
+                      <td>{u.email}</td>
+                      <td>{u.name || '-'}</td>
+                      <td><span className="badge badge-info">{u.plan_tier}</span></td>
+                      <td>{u.executions_used?.toLocaleString()}</td>
+                      <td>{u.exec_limit?.toLocaleString()}</td>
+                      <td>{u.is_admin ? '✅' : '❌'}</td>
+                      <td>{new Date(u.created_at).toLocaleDateString()}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         )}
 
         {activeTab === 'executions' && (
           <div className="executions-section">
-            <p className="text-muted">Execution monitoring coming soon.</p>
+            <h3>All Executions ({executions.length})</h3>
+            <div className="table-container">
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th>User</th>
+                    <th>Workflow</th>
+                    <th>Status</th>
+                    <th>Error</th>
+                    <th>Time (ms)</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {executions.map(e => (
+                    <tr key={e.id}>
+                      <td>{e.user_email}</td>
+                      <td>{e.workflow_name}</td>
+                      <td><span className={`badge badge-${e.status === 'success' ? 'success' : 'danger'}`}>{e.status}</span></td>
+                      <td>{e.error_message ? e.error_message.substring(0, 50) : '-'}</td>
+                      <td>{e.execution_time_ms || '-'}</td>
+                      <td>{new Date(e.created_at).toLocaleString()}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         )}
 
