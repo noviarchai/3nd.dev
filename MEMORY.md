@@ -47,6 +47,21 @@ Master user-alignment skill already implemented at `~/.openclaw/skills/dancore/S
 Central command center — interprets Dan's intent, amplifies requests, routes to correct systems.
 Contains DanSync + IntentAmplifier layers internally.
 
+## God-Tier Dev Skills (2026-03-30) — ALL IMPLEMENTED
+All 10 skills exist and are production-ready at `~/.openclaw/skills/`:
+- VisionForge — concept refinement
+- BuildForge — technical architecture
+- ExperienceForge — UX/UI polish
+- AdminForge — operator admin panel
+- UserForge — private user area
+- RevenueForge — monetization systems
+- IntegrationForge — cross-system coherence
+- EvolutionForge — safe upgrades
+- ShipForge — QA/release readiness
+- OrchestratorForge — coordinates all 9 others
+
+OrchestratorForge routes any project through: Vision → Build → Experience → Admin → User → Revenue → Integration → Evolution → Ship
+
 ## God-Tier Product Foundry (2026-03-30)
 Dan uploaded a comprehensive 9-swarm build system. Full docs: `/home/pi/.openclaw/workspace/GOD_TIER_PRODUCT_FOUNDRY.md`
 Saved to: `/home/pi/.openclaw/workspace/GOD_TIER_PRODUCT_FOUNDRY.md`
