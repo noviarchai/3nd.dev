@@ -287,13 +287,15 @@
 
         /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
-            html, body { min-width: 100vw; width: 100vw; overflow-x: hidden; }
-            nav { padding: 1rem 1.25rem; }
+            html, body { width: 100%; min-width: 100%; overflow-x: hidden; }
+            nav { padding: 1rem 1.25rem; width: 100%; left: 0; right: 0; }
             .nav-links { display: none; }
             .hamburger { display: flex; margin-left: auto; }
+            .hero { width: 100%; padding: 8rem 1.25rem 4rem; }
             .hero h1 { font-size: 2.2rem; }
             .hero p { font-size: 1rem; }
             .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            section { padding-left: 1.25rem; padding-right: 1.25rem; }
             .footer-content { flex-direction: column; }
             .footer-links { gap: 2rem; }
             #cookie-banner { flex-direction: column; text-align: center; }
