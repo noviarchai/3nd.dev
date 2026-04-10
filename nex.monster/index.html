@@ -44,10 +44,16 @@
         /* ===== COOKIE BANNER ===== */
         #cookie-banner {
             position: fixed;
-            bottom: 0; left: 0; right: 0;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 1200px;
             z-index: 9999;
             background: var(--bg-card);
             border-top: 1px solid var(--border);
+            border-left: 1px solid var(--border);
+            border-right: 1px solid var(--border);
             padding: 1rem 2rem;
             display: none;
             align-items: center;
@@ -465,36 +471,28 @@
         <p class="section-desc">Our autonomous systems are currently building and operating businesses across multiple verticals.</p>
         <div class="companies-grid">
             <div class="company-card fade-in">
-                <div class="company-logo">🔨</div>
+                <div class="company-logo">💬</div>
                 <div class="company-info">
-                    <h4>ForgeStack</h4>
-                    <p>AI-powered dev tools for SaaS builders. Automates boilerplate, deployment, and scaling.</p>
+                    <h4>SupportForge</h4>
+                    <p>Flat-rate customer support chat. Unlimited agents, real-time WebSocket, embeddable widget. $49/mo.</p>
                 </div>
-                <span class="company-status live">Live Beta</span>
+                <a href="https://support.nex.monster" target="_blank" class="company-status live">support.nex.monster →</a>
             </div>
             <div class="company-card fade-in">
                 <div class="company-logo">📊</div>
                 <div class="company-info">
-                    <h4>MetricMind</h4>
-                    <p>Automated analytics for indie hackers. One-click dashboards, no SQL required.</p>
+                    <h4>MetricPulse</h4>
+                    <p>AI-powered business analytics. Track KPIs, dashboards, and insights. Plans from $29/mo.</p>
                 </div>
-                <span class="company-status dev">In Dev</span>
+                <a href="https://metricpulse.live" target="_blank" class="company-status live">metricpulse.live →</a>
             </div>
             <div class="company-card fade-in">
-                <div class="company-logo">✍️</div>
+                <div class="company-logo">⚡</div>
                 <div class="company-info">
-                    <h4>CopyForge</h4>
-                    <p>AI copywriting for SaaS landing pages. High-converting copy, generated in seconds.</p>
+                    <h4>FlowBridge</h4>
+                    <p>Visual workflow automation. Connect apps, automate tasks, save hours. Plans from $19/mo.</p>
                 </div>
-                <span class="company-status dev">In Dev</span>
-            </div>
-            <div class="company-card fade-in">
-                <div class="company-logo">🌐</div>
-                <div class="company-info">
-                    <h4>LaunchPad HQ</h4>
-                    <p>One-click SaaS launch infrastructure. From zero to deployed in under an hour.</p>
-                </div>
-                <span class="company-status dev">In Dev</span>
+                <a href="https://flowbridge.live" target="_blank" class="company-status live">flowbridge.live →</a>
             </div>
         </div>
     </div>
@@ -546,19 +544,19 @@
 
         <div class="contact-grid">
             <div class="contact-card">
-                <h3>📧 Email</h3>
+                <h3>📧 General</h3>
                 <p><a href="mailto:hello@nex.monster">hello@nex.monster</a></p>
-                <p style="margin-top:0.5rem;font-size:0.8rem;color:var(--text-dim)">Best for partnerships and project inquiries</p>
+                <p style="margin-top:0.5rem;font-size:0.8rem;color:var(--text-dim)">Partnerships, projects, anything else</p>
+            </div>
+            <div class="contact-card">
+                <h3>💳 Billing</h3>
+                <p><a href="mailto:billing@nex.monster">billing@nex.monster</a></p>
+                <p style="margin-top:0.5rem;font-size:0.8rem;color:var(--text-dim)">Invoices, subscriptions, payments</p>
             </div>
             <div class="contact-card">
                 <h3>🐦 Twitter</h3>
                 <p><a href="https://twitter.com/nexmonster" target="_blank">@nexmonster</a></p>
                 <p style="margin-top:0.5rem;font-size:0.8rem;color:var(--text-dim)">Follow for updates on what we're building</p>
-            </div>
-            <div class="contact-card">
-                <h3>🌍 Status</h3>
-                <p><a href="status.html">System Status Page</a></p>
-                <p style="margin-top:0.5rem;font-size:0.8rem;color:var(--text-dim)">Real-time operations monitoring</p>
             </div>
         </div>
 
@@ -615,17 +613,19 @@
                 <div class="footer-col">
                     <h4>Products</h4>
                     <ul>
-                        <li><a href="#">ForgeStack</a></li>
-                        <li><a href="#">MetricMind</a></li>
-                        <li><a href="#">CopyForge</a></li>
-                        <li><a href="#">LaunchPad HQ</a></li>
+                        <li><a href="https://support.nex.monster" target="_blank">SupportForge</a> — $49/mo</li>
+                        <li><a href="https://metricpulse.live" target="_blank">MetricPulse</a> — $29/mo+</li>
+                        <li><a href="https://flowbridge.live" target="_blank">FlowBridge</a> — $19/mo+</li>
                     </ul>
                 </div>
             </div>
         </div>
         <div class="footer-bottom">
             <p>© 2026 nex.monster — Built by AI, operated by agents, trusted by humans</p>
-            <p style="margin-top:0.75rem;font-size:0.85rem;color:var(--text-dim)">General inquiries: <a href="mailto:hello@nex.monster" style="color:var(--accent-bright)">hello@nex.monster</a></p>
+            <p style="margin-top:0.75rem;font-size:0.85rem;color:var(--text-dim)">
+                <a href="mailto:hello@nex.monster" style="color:var(--accent-bright)">hello@nex.monster</a> · 
+                <a href="mailto:billing@nex.monster" style="color:var(--accent-bright)">billing@nex.monster</a>
+            </p>
             <div class="social-links">
                 <a href="https://twitter.com/nexmonster" target="_blank" title="Twitter">𝕏</a>
                 <a href="https://github.com/nexmonster" target="_blank" title="GitHub">◇</a>

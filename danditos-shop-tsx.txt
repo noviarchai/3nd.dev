@@ -1,0 +1,80 @@
+'use client'
+import { useEffect, useState } from 'react'
+import { useSearchParams } from 'next/navigation'
+
+interface Product {
+  id: number
+  name: string
+  slug: string
+  price: number
+  heat_level: string
+  image_url: string
+  description: string
+}
+
+export default function ShopPage() {
+  const [products, setProducts] = useState<Product[]>([])
+  const [loading, setLoading] = useState(true)
+  const searchParams = useSearchParams()
+  const heatFilter = searchParams.get('heat')
+
+  useEffect(() => {
+    fetch('/api/products')
+      .then(res => res.json())
+      .then(data => {
+        let filtered = data
+        if (heatFilter) {
+          filtered = data.filter((p: Product) => p.heat_level === heatFilter)
+        }
+        setProducts(filtered)
+        setLoading(false)
+      })
+      .catch(() => setLoading(false))
+  }, [heatFilter])
+
+  return (
+    <>
+      <div className="shop-header">
+        <div className="container">
+          <h1>The Sauce Shop</h1>
+          <p>Small batch. Bold flavor. Made in Calgary.</p>
+        </div>
+      </div>
+
+      <section className="section">
+        <div className="container">
+          <div style={{ display: 'flex', gap: '16px', marginBottom: '40px', justifyContent: 'center' }}>
+            <a href="/shop" className={`btn ${!heatFilter ? 'btn-primary' : 'btn-secondary'}`}>All</a>
+            <a href="/shop?heat=mild" className={`btn ${heatFilter === 'mild' ? 'btn-primary' : 'btn-secondary'}`}>Mild</a>
+            <a href="/shop?heat=medium" className={`btn ${heatFilter === 'medium' ? 'btn-primary' : 'btn-secondary'}`}>Medium</a>
+            <a href="/shop?heat=hot" className={`btn ${heatFilter === 'hot' ? 'btn-primary' : 'btn-secondary'}`}>Hot</a>
+            <a href="/shop?heat=extreme" className={`btn ${heatFilter === 'extreme' ? 'btn-primary' : 'btn-secondary'}`}>Extreme</a>
+          </div>
+
+          {loading ? (
+            <p style={{ textAlign: 'center', color: '#888' }}>Loading...</p>
+          ) : products.length === 0 ? (
+            <p style={{ textAlign: 'center', color: '#888' }}>No sauces found with this heat level.</p>
+          ) : (
+            <div className="editorial-grid">
+              {products.map((product, index) => (
+                <a 
+                  href={`/product/${product.slug}`} 
+                  key={product.id} 
+                  className={`editorial-card editorial-${index === 0 ? '1' : index === 1 ? '2' : index === 2 ? '3' : '4'}`}
+                >
+                  <img src={product.image_url} alt={product.name} />
+                  <div className="editorial-overlay">
+                    <span className={`heat-badge heat-${product.heat_level}`}>{product.heat_level}</span>
+                    <h3>{product.name}</h3>
+                    <p className="price">${product.price.toFixed(2)}</p>
+                  </div>
+                </a>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+    </>
+  )
+}

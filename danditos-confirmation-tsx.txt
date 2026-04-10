@@ -1,0 +1,51 @@
+'use client'
+import { useEffect, useState } from 'react'
+import { useSearchParams } from 'next/navigation'
+
+interface Order {
+  id: number
+  order_number: string
+  total: number
+  status: string
+  created_at: string
+}
+
+export default function ConfirmationPage() {
+  const searchParams = useSearchParams()
+  const orderNumber = searchParams.get('order')
+  const [order, setOrder] = useState<Order | null>(null)
+
+  useEffect(() => {
+    if (orderNumber) {
+      fetch(`/api/orders?orderNumber=${orderNumber}`)
+        .then(res => res.json())
+        .then(data => {
+          if (data.length > 0) {
+            setOrder(data[0])
+          }
+        })
+        .catch(console.error)
+    }
+  }, [orderNumber])
+
+  return (
+    <section className="confirmation-page">
+      <div className="container">
+        <div className="confirmation-icon">✓</div>
+        <h1>Order Confirmed!</h1>
+        {orderNumber && <p className="order-number">Order #{orderNumber}</p>}
+        <p>Thank you for your order. We've received your payment and will start preparing your sauces right away.</p>
+        <p style={{ marginTop: '16px' }}>A confirmation email has been sent to your email address.</p>
+        
+        <div style={{ marginTop: '48px' }}>
+          <a href="/account" className="btn btn-secondary" style={{ marginRight: '16px' }}>
+            View Order
+          </a>
+          <a href="/shop" className="btn btn-primary">
+            Continue Shopping
+          </a>
+        </div>
+      </div>
+    </section>
+  )
+}

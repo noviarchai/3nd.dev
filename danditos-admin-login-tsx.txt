@@ -1,0 +1,58 @@
+'use client'
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+
+export default function AdminLogin() {
+  const router = useRouter()
+  const [key, setKey] = useState('')
+  const [error, setError] = useState('')
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (key === 'dandito-admin-2024') {
+      localStorage.setItem('adminKey', key)
+      router.push('/admin')
+    } else {
+      setError('Invalid admin key')
+    }
+  }
+
+  return (
+    <div style={{ 
+      minHeight: '100vh', 
+      display: 'flex', 
+      alignItems: 'center', 
+      justifyContent: 'center',
+      background: 'var(--charcoal)'
+    }}>
+      <div style={{ width: '100%', maxWidth: '400px', padding: '20px' }}>
+        <h1 style={{ textAlign: 'center', marginBottom: '40px', fontSize: '2rem' }}>
+          <span style={{ color: 'var(--fire-red)' }}>DANDITO'S</span> Admin
+        </h1>
+        
+        <form onSubmit={handleLogin} className="checkout-form">
+          <h3 style={{ marginBottom: '24px' }}>Login</h3>
+          
+          {error && (
+            <p style={{ color: 'var(--fire-red)', marginBottom: '16px' }}>{error}</p>
+          )}
+          
+          <div className="form-group">
+            <label>Admin Key</label>
+            <input 
+              type="password" 
+              value={key}
+              onChange={(e) => setKey(e.target.value)}
+              placeholder="Enter admin key"
+              style={{ width: '100%' }}
+            />
+          </div>
+          
+          <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>
+            Access Admin
+          </button>
+        </form>
+      </div>
+    </div>
+  )
+}

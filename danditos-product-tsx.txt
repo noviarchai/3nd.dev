@@ -1,0 +1,136 @@
+'use client'
+import { useEffect, useState } from 'react'
+import { useParams } from 'next/navigation'
+
+interface Product {
+  id: number
+  name: string
+  slug: string
+  price: number
+  heat_level: string
+  image_url: string
+  description: string
+  stock: number
+}
+
+interface RelatedProduct {
+  id: number
+  name: string
+  slug: string
+  price: number
+  image_url: string
+}
+
+export default function ProductPage() {
+  const params = useParams()
+  const [product, setProduct] = useState<Product | null>(null)
+  const [related, setRelated] = useState<RelatedProduct[]>([])
+  const [quantity, setQuantity] = useState(1)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    fetch(`/api/products/${params.slug}`)
+      .then(res => res.json())
+      .then(data => {
+        setProduct(data.product)
+        setRelated(data.related || [])
+        setLoading(false)
+      })
+      .catch(() => setLoading(false))
+  }, [params.slug])
+
+  const addToCart = () => {
+    if (!product) return
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]')
+    const existing = cart.find((item: any) => item.slug === product.slug)
+    if (existing) {
+      existing.quantity += quantity
+    } else {
+      cart.push({
+        id: product.id,
+        name: product.name,
+        slug: product.slug,
+        price: product.price,
+        image_url: product.image_url,
+        heat_level: product.heat_level,
+        quantity: quantity
+      })
+    }
+    localStorage.setItem('cart', JSON.stringify(cart))
+    window.location.href = '/cart'
+  }
+
+  if (loading) {
+    return <div className="container" style={{ padding: '100px 0', textAlign: 'center' }}>Loading...</div>
+  }
+
+  if (!product) {
+    return <div className="container" style={{ padding: '100px 0', textAlign: 'center' }}>Product not found</div>
+  }
+
+  return (
+    <>
+      <section className="product-detail">
+        <div className="container">
+          <div className="product-detail-grid">
+            <div className="product-detail-image">
+              <img src={product.image_url} alt={product.name} />
+            </div>
+            <div className="product-detail-info">
+              <span className={`heat-badge heat-${product.heat_level}`}>{product.heat_level.toUpperCase()}</span>
+              <h1>{product.name}</h1>
+              <p className="product-detail-price">${product.price.toFixed(2)}</p>
+              <p className="product-detail-description">{product.description}</p>
+              
+              <p className={`stock-info ${product.stock > 0 ? 'in-stock' : ''}`}>
+                {product.stock > 0 ? `In Stock (${product.stock} available)` : 'Out of Stock'}
+              </p>
+
+              <div className="quantity-selector">
+                <label>Quantity:</label>
+                <input 
+                  type="number" 
+                  min="1" 
+                  max={product.stock} 
+                  value={quantity}
+                  onChange={(e) => setQuantity(Math.min(Math.max(1, parseInt(e.target.value) || 1), product.stock))}
+                />
+              </div>
+
+              <button 
+                className="btn btn-primary" 
+                onClick={addToCart}
+                disabled={product.stock <= 0}
+                style={{ width: '100%', marginBottom: '16px' }}
+              >
+                Add to Cart
+              </button>
+              <a href="/cart" className="btn btn-secondary" style={{ width: '100%', textAlign: 'center' }}>
+                View Cart
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {related.length > 0 && (
+        <section className="section" style={{ background: 'var(--charcoal-light)' }}>
+          <div className="container">
+            <h2 className="section-title">You Might Also Like</h2>
+            <div className="products-grid">
+              {related.map(p => (
+                <a href={`/product/${p.slug}`} key={p.id} className="product-card">
+                  <img src={p.image_url} alt={p.name} />
+                  <div className="product-info">
+                    <h3>{p.name}</h3>
+                    <p className="product-price">${p.price.toFixed(2)}</p>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+    </>
+  )
+}

@@ -1,0 +1,278 @@
+'use client'
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+
+interface CartItem {
+  id: number
+  name: string
+  slug: string
+  price: number
+  image_url: string
+  heat_level: string
+  quantity: number
+}
+
+interface ShippingRate {
+  name: string
+  rate: number
+  deliveryDays: string
+}
+
+export default function CheckoutPage() {
+  const router = useRouter()
+  const [cart, setCart] = useState<CartItem[]>([])
+  const [mounted, setMounted] = useState(false)
+  const [shippingRates, setShippingRates] = useState<ShippingRate[]>([])
+  const [selectedShipping, setSelectedShipping] = useState<ShippingRate | null>(null)
+  const [loading, setLoading] = useState(false)
+  const [form, setForm] = useState({
+    email: '',
+    name: '',
+    address: '',
+    city: '',
+    province: 'AB',
+    postal: '',
+    phone: ''
+  })
+
+  useEffect(() => {
+    const savedCart = JSON.parse(localStorage.getItem('cart') || '[]')
+    setCart(savedCart)
+    setMounted(true)
+
+    if (savedCart.length > 0) {
+      fetch('/api/shipping-rates', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ postalCode: form.postal || 'T2P1J9', weight: savedCart.length * 0.5 })
+      })
+        .then(res => res.json())
+        .then(data => {
+          setShippingRates(data.rates || [])
+          if (data.rates && data.rates.length > 0) {
+            setSelectedShipping(data.rates[0])
+          }
+        })
+        .catch(() => {
+          setShippingRates([
+            { name: 'Standard Shipping', rate: 12.99, deliveryDays: '5-7 business days' },
+            { name: 'Express Shipping', rate: 24.99, deliveryDays: '2-3 business days' }
+          ])
+          setSelectedShipping({ name: 'Standard Shipping', rate: 12.99, deliveryDays: '5-7 business days' })
+        })
+    }
+  }, [])
+
+  const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0)
+  const shippingCost = selectedShipping?.rate || 0
+  const total = subtotal + shippingCost
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setLoading(true)
+
+    try {
+      const response = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          cart,
+          shippingAddress: form,
+          shippingMethod: selectedShipping,
+          subtotal,
+          shippingCost,
+          total
+        })
+      })
+
+      const data = await response.json()
+      
+      if (data.url) {
+        window.location.href = data.url
+      } else if (data.orderNumber) {
+        localStorage.removeItem('cart')
+        router.push(`/confirmation?order=${data.orderNumber}`)
+      }
+    } catch (error) {
+      console.error('Checkout error:', error)
+      setLoading(false)
+    }
+  }
+
+  if (!mounted) {
+    return <div className="container" style={{ padding: '100px 0', textAlign: 'center' }}>Loading...</div>
+  }
+
+  if (cart.length === 0) {
+    return (
+      <div className="container" style={{ padding: '100px 0', textAlign: 'center' }}>
+        <h1>Your cart is empty</h1>
+        <a href="/shop" className="btn btn-primary" style={{ marginTop: '24px' }}>Shop Now</a>
+      </div>
+    )
+  }
+
+  return (
+    <section className="checkout-page">
+      <div className="container">
+        <h1>Checkout</h1>
+        
+        <form onSubmit={handleSubmit} className="checkout-layout">
+          <div>
+            <div className="checkout-form">
+              <h3>Shipping Information</h3>
+              
+              <div className="form-group">
+                <label>Email</label>
+                <input 
+                  type="email" 
+                  required
+                  value={form.email}
+                  onChange={(e) => setForm({...form, email: e.target.value})}
+                />
+              </div>
+
+              <div className="form-group">
+                <label>Full Name</label>
+                <input 
+                  type="text" 
+                  required
+                  value={form.name}
+                  onChange={(e) => setForm({...form, name: e.target.value})}
+                />
+              </div>
+
+              <div className="form-group">
+                <label>Street Address</label>
+                <input 
+                  type="text" 
+                  required
+                  value={form.address}
+                  onChange={(e) => setForm({...form, address: e.target.value})}
+                />
+              </div>
+
+              <div className="form-row">
+                <div className="form-group">
+                  <label>City</label>
+                  <input 
+                    type="text" 
+                    required
+                    value={form.city}
+                    onChange={(e) => setForm({...form, city: e.target.value})}
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Province</label>
+                  <select 
+                    value={form.province}
+                    onChange={(e) => setForm({...form, province: e.target.value})}
+                  >
+                    <option value="AB">Alberta</option>
+                    <option value="BC">British Columbia</option>
+                    <option value="MB">Manitoba</option>
+                    <option value="NB">New Brunswick</option>
+                    <option value="NL">Newfoundland</option>
+                    <option value="NS">Nova Scotia</option>
+                    <option value="NT">Northwest Territories</option>
+                    <option value="NU">Nunavut</option>
+                    <option value="ON">Ontario</option>
+                    <option value="PE">Prince Edward Island</option>
+                    <option value="QC">Quebec</option>
+                    <option value="SK">Saskatchewan</option>
+                    <option value="YT">Yukon</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="form-row">
+                <div className="form-group">
+                  <label>Postal Code</label>
+                  <input 
+                    type="text" 
+                    required
+                    placeholder="T2P1J9"
+                    value={form.postal}
+                    onChange={(e) => setForm({...form, postal: e.target.value})}
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Phone (optional)</label>
+                  <input 
+                    type="tel"
+                    value={form.phone}
+                    onChange={(e) => setForm({...form, phone: e.target.value})}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="checkout-form" style={{ marginTop: '24px' }}>
+              <h3>Shipping Method</h3>
+              <div className="shipping-options">
+                {shippingRates.length === 0 ? (
+                  <div className="shipping-option selected">
+                    <div className="option-info">
+                      <p className="option-name">Calculating rates...</p>
+                    </div>
+                  </div>
+                ) : (
+                  shippingRates.map((rate) => (
+                    <label 
+                      key={rate.name}
+                      className={`shipping-option ${selectedShipping?.name === rate.name ? 'selected' : ''}`}
+                    >
+                      <input 
+                        type="radio" 
+                        name="shipping"
+                        checked={selectedShipping?.name === rate.name}
+                        onChange={() => setSelectedShipping(rate)}
+                      />
+                      <div className="option-info">
+                        <p className="option-name">{rate.name}</p>
+                        <p className="option-delivery">{rate.deliveryDays}</p>
+                      </div>
+                      <p className="option-price">${rate.rate.toFixed(2)}</p>
+                    </label>
+                  ))
+                )}
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div className="cart-summary">
+              <h3>Order Summary</h3>
+              {cart.map(item => (
+                <div key={item.slug} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '12px' }}>
+                  <span style={{ color: '#888' }}>{item.name} × {item.quantity}</span>
+                  <span>${(item.price * item.quantity).toFixed(2)}</span>
+                </div>
+              ))}
+              <div className="cart-summary-row">
+                <span>Subtotal</span>
+                <span>${subtotal.toFixed(2)}</span>
+              </div>
+              <div className="cart-summary-row">
+                <span>Shipping</span>
+                <span>${shippingCost.toFixed(2)}</span>
+              </div>
+              <div className="cart-summary-row total">
+                <span>Total</span>
+                <span>${total.toFixed(2)}</span>
+              </div>
+              <button 
+                type="submit" 
+                className="btn btn-primary" 
+                style={{ width: '100%', marginTop: '24px' }}
+                disabled={loading || !selectedShipping}
+              >
+                {loading ? 'Processing...' : 'Pay with Stripe'}
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+  )
+}

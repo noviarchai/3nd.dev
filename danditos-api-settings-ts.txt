@@ -1,0 +1,39 @@
+import { NextResponse } from 'next/server'
+import { getSettings, setSetting } from '@/lib/db'
+
+export async function GET() {
+  try {
+    const settings = await getSettings()
+    // Don't expose secrets
+    const safeSettings = {
+      stripe_publishable_key: settings.stripe_publishable_key || '',
+      canadapost_api_key: settings.canadapost_api_key ? '***' : '',
+      canadapost_customer_number: settings.canadapost_customer_number || '',
+      shipping_markup_percent: settings.shipping_markup_percent || '0',
+      email_from: settings.email_from || '',
+      email_smtp_host: settings.email_smtp_host ? '***' : '',
+      email_smtp_port: settings.email_smtp_port || '',
+    }
+    return NextResponse.json(safeSettings)
+  } catch (error) {
+    console.error('Error fetching settings:', error)
+    return NextResponse.json({ error: 'Failed to fetch settings' }, { status: 500 })
+  }
+}
+
+export async function POST(request: Request) {
+  try {
+    const body = await request.json()
+    const { key, value } = body
+
+    if (!key) {
+      return NextResponse.json({ error: 'Key required' }, { status: 400 })
+    }
+
+    await setSetting(key, value)
+    return NextResponse.json({ success: true })
+  } catch (error) {
+    console.error('Error saving setting:', error)
+    return NextResponse.json({ error: 'Failed to save setting' }, { status: 500 })
+  }
+}

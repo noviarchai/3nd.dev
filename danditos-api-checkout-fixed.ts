@@ -1,0 +1,81 @@
+import { NextResponse } from 'next/server'
+import { createOrder, createOrderItem, getSetting } from '@/lib/db'
+import { createCheckoutSession } from '@/lib/stripe'
+import crypto from 'crypto'
+
+function generateOrderNumber() {
+  const timestamp = Date.now().toString(36).toUpperCase()
+  const random = crypto.randomBytes(3).toString('hex').toUpperCase()
+  return 'DND-' + timestamp + '-' + random
+}
+
+export async function POST(request: Request) {
+  try {
+    const body = await request.json()
+    const { cart, shippingAddress, shippingMethod, subtotal, shippingCost, total } = body
+
+    if (!cart || cart.length === 0) {
+      return NextResponse.json({ error: 'Cart is empty' }, { status: 400 })
+    }
+
+    const orderNumber = generateOrderNumber()
+
+    const order = await createOrder({
+      order_number: orderNumber,
+      customer_email: shippingAddress.email,
+      customer_name: shippingAddress.name,
+      shipping_address: shippingAddress,
+      subtotal,
+      shipping_cost: shippingCost,
+      total,
+      shipping_method: shippingMethod?.name || 'Standard',
+      status: 'pending'
+    })
+
+    for (const item of cart) {
+      await createOrderItem({
+        order_id: order.id,
+        product_id: item.id,
+        product_name: item.name,
+        quantity: item.quantity,
+        unit_price: item.price,
+        total_price: item.price * item.quantity
+      })
+    }
+
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
+    
+    try {
+      const lineItems = cart.map((item: any) => ({
+        price_data: {
+          currency: 'cad',
+          product_data: {
+            name: item.name,
+            images: [item.image_url]
+          },
+          unit_amount: Math.round(item.price * 100)
+        },
+        quantity: item.quantity
+      }))
+
+      const session = await createCheckoutSession(
+        lineItems,
+        baseUrl + '/confirmation?order=' + orderNumber,
+        baseUrl + '/cart',
+        {
+          orderId: order.id.toString(),
+          orderNumber
+        }
+      )
+
+      return NextResponse.json({ url: session.url, orderNumber })
+    } catch (stripeError: any) {
+      console.error('Stripe error:', stripeError)
+      return NextResponse.json({ orderNumber, success: true })
+    }
+
+  } catch (error) {
+    console.error('Checkout error:', error)
+    return NextResponse.json({ error: 'Checkout failed' }, { status: 500 })
+  }
+}

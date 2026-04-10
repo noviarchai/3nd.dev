@@ -1,0 +1,143 @@
+'use client'
+import { useEffect, useState } from 'react'
+
+interface Order {
+  id: number
+  order_number: string
+  customer_email: string
+  customer_name: string
+  total: string
+  status: string
+  shipping_method: string
+  created_at: string
+  shipping_address: any
+}
+
+export default function AdminOrders() {
+  const [orders, setOrders] = useState<Order[]>([])
+  const [selectedOrder, setSelectedOrder] = useState<Order | null>(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    fetch('/api/orders')
+      .then(res => res.json())
+      .then(data => {
+        setOrders(data)
+        setLoading(false)
+      })
+      .catch(() => setLoading(false))
+  }, [])
+
+  const updateStatus = async (orderId: number, status: string) => {
+    await fetch(`/api/orders?id=${orderId}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ status })
+    })
+    
+    setOrders(orders.map(o => o.id === orderId ? { ...o, status } : o))
+    if (selectedOrder?.id === orderId) {
+      setSelectedOrder({ ...selectedOrder, status })
+    }
+  }
+
+  if (loading) {
+    return <p>Loading...</p>
+  }
+
+  return (
+    <div>
+      <h1>Orders</h1>
+
+      {selectedOrder ? (
+        <div>
+          <button 
+            onClick={() => setSelectedOrder(null)}
+            className="btn btn-secondary"
+            style={{ marginBottom: '24px' }}
+          >
+            ← Back to Orders
+          </button>
+
+          <div className="checkout-form">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
+              <h3>Order #{selectedOrder.order_number}</h3>
+              <select 
+                value={selectedOrder.status}
+                onChange={(e) => updateStatus(selectedOrder.id, e.target.value)}
+                style={{ 
+                  padding: '8px 16px', 
+                  background: 'var(--charcoal)', 
+                  border: '1px solid #444', 
+                  color: 'var(--cream)',
+                  borderRadius: '4px'
+                }}
+              >
+                <option value="pending">Pending</option>
+                <option value="paid">Paid</option>
+                <option value="shipped">Shipped</option>
+                <option value="delivered">Delivered</option>
+                <option value="cancelled">Cancelled</option>
+              </select>
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
+              <div>
+                <p style={{ color: '#888', marginBottom: '8px' }}>Customer</p>
+                <p>{selectedOrder.customer_name}</p>
+                <p style={{ color: '#888' }}>{selectedOrder.customer_email}</p>
+              </div>
+              <div>
+                <p style={{ color: '#888', marginBottom: '8px' }}>Date</p>
+                <p>{new Date(selectedOrder.created_at).toLocaleString()}</p>
+              </div>
+              <div>
+                <p style={{ color: '#888', marginBottom: '8px' }}>Shipping Address</p>
+                <p>{selectedOrder.shipping_address?.name}</p>
+                <p style={{ color: '#888' }}>{selectedOrder.shipping_address?.address}</p>
+                <p style={{ color: '#888' }}>{selectedOrder.shipping_address?.city}, {selectedOrder.shipping_address?.province} {selectedOrder.shipping_address?.postal}</p>
+              </div>
+              <div>
+                <p style={{ color: '#888', marginBottom: '8px' }}>Shipping Method</p>
+                <p>{selectedOrder.shipping_method}</p>
+              </div>
+            </div>
+
+            <div style={{ marginTop: '32px', paddingTop: '32px', borderTop: '1px solid #444' }}>
+              <p style={{ fontSize: '1.5rem', fontWeight: '700', color: 'var(--ember-orange)' }}>
+                Total: ${parseFloat(selectedOrder.total).toFixed(2)}
+              </p>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <table className="admin-table">
+          <thead>
+            <tr>
+              <th>Order</th>
+              <th>Customer</th>
+              <th>Total</th>
+              <th>Status</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {orders.map(order => (
+              <tr 
+                key={order.id} 
+                onClick={() => setSelectedOrder(order)}
+                style={{ cursor: 'pointer' }}
+              >
+                <td>#{order.order_number}</td>
+                <td>{order.customer_name}</td>
+                <td>${parseFloat(order.total).toFixed(2)}</td>
+                <td><span className={`status-badge ${order.status}`}>{order.status}</span></td>
+                <td>{new Date(order.created_at).toLocaleDateString()}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </div>
+  )
+}

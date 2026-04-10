@@ -1,0 +1,123 @@
+'use client'
+import { useEffect, useState } from 'react'
+
+interface Product {
+  id: number
+  name: string
+  slug: string
+  price: number
+  heat_level: string
+  image_url: string
+}
+
+export default function HomePage() {
+  const [products, setProducts] = useState<Product[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    fetch('/api/products')
+      .then(res => res.json())
+      .then(data => {
+        setProducts(data.slice(0, 4))
+        setLoading(false)
+      })
+      .catch(() => setLoading(false))
+  }, [])
+
+  return (
+    <>
+      <section className="hero">
+        <div className="container">
+          <div className="hero-content">
+            <p className="hero-tagline">Calgary, Alberta</p>
+            <h1>NO FACTORY SAUCE.<br /><span>NO SHORTCUTS.</span></h1>
+            <p className="hero-sub">
+              Hand-crafted hot sauces made from peppers we grow ourselves. Small batch. Bold flavor. The real deal.
+            </p>
+            <div className="hero-cta">
+              <a href="/shop" className="btn btn-primary">Shop Now</a>
+              <a href="#story" className="btn btn-secondary">Our Story</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="container">
+          <h2 className="section-title">Featured <span>Sauces</span></h2>
+          {loading ? (
+            <p style={{ textAlign: 'center', color: '#888' }}>Loading...</p>
+          ) : (
+            <div className="products-grid">
+              {products.map(product => (
+                <a href={`/product/${product.slug}`} key={product.id} className="product-card">
+                  <img src={product.image_url} alt={product.name} />
+                  <div className="product-info">
+                    <span className={`heat-badge heat-${product.heat_level}`}>{product.heat_level}</span>
+                    <h3>{product.name}</h3>
+                    <p className="product-price">${product.price.toFixed(2)}</p>
+                  </div>
+                </a>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+
+      <section id="story" className="section story">
+        <div className="container">
+          <div className="story-inner">
+            <div>
+              <h2>From Our Garden<br /><span>To Your Table</span></h2>
+              <p>
+                Every bottle of Dandito's starts with one thing: peppers we grew ourselves, right here in Calgary. No factory. No shortcuts. No mystery ingredients.
+              </p>
+              <p>
+                Dan grows his peppers in the backyard — Carolina Reapers, ghost peppers, cayenne, and more. When they're ready, he roasts, blends, and bottles each batch by hand.
+              </p>
+              <p>
+                The result? Sauces with real character. Heat that builds. Flavors that stick around. This is what hot sauce tastes like when someone actually gives a damn.
+              </p>
+              <a href="/shop" className="btn btn-primary" style={{ marginTop: '24px' }}>Taste the Difference</a>
+            </div>
+            <div className="story-image">
+              <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&q=80" alt="Fresh peppers" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="testimonial">
+        <div className="container">
+          <blockquote>
+            "I've been through every hot sauce at every grocery store. This is the first one that actually tastes like someone made it with love. The Calgary Heat goes on everything."
+          </blockquote>
+          <cite>— Mike R., Calgary</cite>
+        </div>
+      </section>
+
+      <section className="section" style={{ background: 'var(--charcoal-light)' }}>
+        <div className="container" style={{ textAlign: 'center' }}>
+          <h2 className="section-title">Find Us <span>In Stores</span></h2>
+          <p style={{ color: '#888', maxWidth: '600px', margin: '0 auto 40px' }}>
+            Can't ship? No problem. Dandito's is available at these Calgary locations:
+          </p>
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '40px', flexWrap: 'wrap' }}>
+            <div>
+              <strong style={{ color: 'var(--fire-red)' }}>Kensington</strong>
+              <p style={{ color: '#888' }}>Chelix Market</p>
+            </div>
+            <div>
+              <strong style={{ color: 'var(--fire-red)' }}>Inglewood</strong>
+              <p style={{ color: '#888' }}>The Good Earth</p>
+            </div>
+            <div>
+              <strong style={{ color: 'var(--fire-red)' }}>Bridgeland</strong>
+              <p style={{ color: '#888' }}>Neighbourhood Goods</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
+  )
+}

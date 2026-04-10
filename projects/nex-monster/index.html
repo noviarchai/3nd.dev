@@ -46,10 +46,16 @@
         /* ===== COOKIE BANNER ===== */
         #cookie-banner {
             position: fixed;
-            bottom: 0; left: 0; right: 0;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 1200px;
             z-index: 9999;
             background: var(--bg-card);
             border-top: 1px solid var(--border);
+            border-left: 1px solid var(--border);
+            border-right: 1px solid var(--border);
             padding: 1rem 2rem;
             display: none;
             align-items: center;

@@ -1,0 +1,55 @@
+import { NextResponse } from 'next/server'
+import { updateOrderStatus, updateOrderStripeId, getSetting } from '@/lib/db'
+import Stripe from 'stripe'
+
+export async function POST(request: Request) {
+  try {
+    const body = await request.text()
+    const signature = request.headers.get('stripe-signature')
+    
+    const webhookSecret = await getSetting('stripe_webhook_secret') || process.env.STRIPE_WEBHOOK_SECRET || ''
+    const secretKey = await getSetting('stripe_secret_key') || process.env.STRIPE_SECRET_KEY || 'sk_test_placeholder'
+
+    if (!webhookSecret || !secretKey) {
+      console.error('Missing Stripe configuration')
+      return NextResponse.json({ error: 'Server misconfigured' }, { status: 500 })
+    }
+
+    const stripe = new Stripe(secretKey, { apiVersion: '2025-03-31.basil' })
+
+    let event: Stripe.Event
+
+    try {
+      event = stripe.webhooks.constructEvent(body, signature!, webhookSecret)
+    } catch (err: any) {
+      console.error('Webhook signature verification failed:', err.message)
+      return NextResponse.json({ error: 'Invalid signature' }, { status: 400 })
+    }
+
+    switch (event.type) {
+      case 'checkout.session.completed': {
+        const session = event.data.object as Stripe.Checkout.Session
+        const orderId = session.metadata?.orderId
+        
+        if (orderId) {
+          await updateOrderStatus(parseInt(orderId), 'paid')
+          if (session.payment_intent) {
+            await updateOrderStripeId(parseInt(orderId), session.payment_intent as string)
+          }
+        }
+        break
+      }
+      
+      case 'payment_intent.payment_failed': {
+        const paymentIntent = event.data.object as Stripe.PaymentIntent
+        console.error('Payment failed:', paymentIntent.id)
+        break
+      }
+    }
+
+    return NextResponse.json({ received: true })
+  } catch (error) {
+    console.error('Webhook error:', error)
+    return NextResponse.json({ error: 'Webhook handler failed' }, { status: 500 })
+  }
+}

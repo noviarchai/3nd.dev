@@ -1,0 +1,110 @@
+'use client'
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+
+interface Stats {
+  today_orders: string
+  today_revenue: string
+  pending_orders: string
+  total_orders: string
+}
+
+interface RecentOrder {
+  id: number
+  order_number: string
+  customer_name: string
+  total: string
+  status: string
+  created_at: string
+}
+
+export default function AdminDashboard() {
+  const router = useRouter()
+  const [stats, setStats] = useState<Stats | null>(null)
+  const [recentOrders, setRecentOrders] = useState<RecentOrder[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const adminKey = localStorage.getItem('adminKey')
+    if (adminKey !== 'dandito-admin-2024') {
+      router.push('/admin/login')
+      return
+    }
+
+    fetch('/api/admin/stats')
+      .then(res => res.json())
+      .then(data => {
+        setStats(data.stats)
+        setRecentOrders(data.recentOrders || [])
+        setLoading(false)
+      })
+      .catch(() => {
+        // Fallback for demo
+        setStats({
+          today_orders: '0',
+          today_revenue: '0',
+          pending_orders: '0',
+          total_orders: '0'
+        })
+        setLoading(false)
+      })
+  }, [router])
+
+  if (loading) {
+    return <p>Loading...</p>
+  }
+
+  return (
+    <div>
+      <h1>Dashboard</h1>
+
+      <div className="stats-grid">
+        <div className="stat-card">
+          <p className="stat-label">Today's Orders</p>
+          <p className="stat-value">{stats?.today_orders || '0'}</p>
+        </div>
+        <div className="stat-card green">
+          <p className="stat-label">Today's Revenue</p>
+          <p className="stat-value">${parseFloat(stats?.today_revenue || '0').toFixed(2)}</p>
+        </div>
+        <div className="stat-card orange">
+          <p className="stat-label">Pending Orders</p>
+          <p className="stat-value">{stats?.pending_orders || '0'}</p>
+        </div>
+        <div className="stat-card blue">
+          <p className="stat-label">Total Orders</p>
+          <p className="stat-value">{stats?.total_orders || '0'}</p>
+        </div>
+      </div>
+
+      <h2 style={{ fontSize: '1.5rem', marginBottom: '20px' }}>Recent Orders</h2>
+      
+      {recentOrders.length === 0 ? (
+        <p style={{ color: '#888' }}>No orders yet</p>
+      ) : (
+        <table className="admin-table">
+          <thead>
+            <tr>
+              <th>Order</th>
+              <th>Customer</th>
+              <th>Total</th>
+              <th>Status</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {recentOrders.map(order => (
+              <tr key={order.id} onClick={() => router.push(`/admin/orders?id=${order.id}`)} style={{ cursor: 'pointer' }}>
+                <td>#{order.order_number}</td>
+                <td>{order.customer_name}</td>
+                <td>${parseFloat(order.total).toFixed(2)}</td>
+                <td><span className={`status-badge ${order.status}`}>{order.status}</span></td>
+                <td>{new Date(order.created_at).toLocaleDateString()}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </div>
+  )
+}
