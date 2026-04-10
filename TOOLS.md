@@ -132,3 +132,18 @@ mutt -f imaps://mai.hairuki@premium340.web-hosting.com:993
 3. Update the SaaS `.env` with Stripe keys + price ID
 4. Restart the service
 5. Done — billing works
+
+---
+
+## DeepSeek API — Coding Models
+
+**Status:** Configured but account has no balance (2026-04-10).
+
+| Setting | Value |
+|---------|-------|
+| `deepseek-chat` | General chat (context: 64K) |
+| `deepseek-coder` | Coding-focused (context: 64K) |
+| Base URL | `https://api.deepseek.com` |
+| Cost | $0.55/1M in, $2.20/1M out |
+
+To use DeepSeek for a session: `/model deepseek:deepseek-coder` or `/model deepseek:deepseek-chat`
