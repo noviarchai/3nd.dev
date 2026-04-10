@@ -185,6 +185,16 @@ Living registry of all OpenClaw skills.
 
 ---
 
+## codeforge
+- **Version:** 1.0
+- **Status:** active
+- **Quality:** 9
+- **Best for:** All coding tasks — writing, debugging, refactoring, reviewing code. Primary engine: DeepSeek Coder (deepseek-coder). Auto-fallback to MiniMax M2.7 on funding errors (silent failover). Full-stack implementation, file operations, SSH deployment, code verification.
+- **Limitations:** Requires DeepSeek API key (configured); fallback to MiniMax means higher cost per token; no automated test execution (yet)
+- **Last updated:** 2026-04-10
+
+---
+
 ## skill-creator
 - **Version:** 1.0
 - **Status:** active
