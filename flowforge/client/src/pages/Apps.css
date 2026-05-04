@@ -63,11 +63,81 @@
 @media (max-width: 768px) {
   .apps-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .app-card {
+    padding: 1.25rem;
+  }
+
+  .app-icon {
+    width: 48px;
+    height: 48px;
+    font-size: 1.5rem;
+  }
+
+  .app-card h3 {
+    font-size: 1rem;
+  }
+
+  .app-card p {
+    font-size: 0.8rem;
+    margin-bottom: 1rem;
   }
 }
 
 @media (max-width: 480px) {
+  .apps-page {
+    padding: 0;
+  }
+
+  .page-header h1 {
+    font-size: 1.25rem;
+  }
+
   .apps-grid {
     grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .app-card {
+    padding: 1rem;
+    border-radius: 0.75rem;
+  }
+
+  .app-header {
+    margin-bottom: 0.75rem;
+  }
+
+  .app-icon {
+    width: 44px;
+    height: 44px;
+    font-size: 1.25rem;
+    border-radius: 0.75rem;
+  }
+
+  .app-card h3 {
+    font-size: 0.95rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .app-card p {
+    font-size: 0.75rem;
+    margin-bottom: 0.875rem;
+  }
+
+  .app-card .btn {
+    padding: 0.75rem;
+    font-size: 0.85rem;
+  }
+
+  /* Modal mobile */
+  .modal {
+    padding: 1.25rem;
+    border-radius: 0.75rem;
+  }
+
+  .modal-header h3 {
+    font-size: 1.1rem;
   }
 }
