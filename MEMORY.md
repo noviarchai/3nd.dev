@@ -62,6 +62,18 @@ All 10 skills exist and are production-ready at `~/.openclaw/skills/`:
 
 OrchestratorForge routes any project through: Vision → Build → Experience → Admin → User → Revenue → Integration → Evolution → Ship
 
+## GitHub Access — @noviarchai
+**Token:** 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
+- All project repos backed up here (private)
+- See `.secrets` for full credentials
+
+## VPS Infrastructure
+
+| VPS | Hostname | Domain/Projects | Status |
+|-----|----------|-----------------|--------|
+| 203.161.55.37 | server1.koko.ahoy | nex.monster, flowbridge.live, metricpulse.live, supporthq.live, Danditos, tnd.nex.monster | Active |
+| 162.254.32.190 | server1.myheadisloud.com | audhd.fit, automator.live, meetalvie, haimath, compare, commandcenter, builder, etc. (21 repos) | Dumped 2026-04-27 — all repos backed up to noviarchai GitHub |
+
 ## God-Tier Product Foundry (2026-03-30)
 Dan uploaded a comprehensive 9-swarm build system. Full docs: `/home/pi/.openclaw/workspace/GOD_TIER_PRODUCT_FOUNDRY.md`
 Saved to: `/home/pi/.openclaw/workspace/GOD_TIER_PRODUCT_FOUNDRY.md`

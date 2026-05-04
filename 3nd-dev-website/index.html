@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3ND.DEV — We Build Ventures</title>
+  <meta name="description" content="ThreeNudeDudes builds multiple businesses across industries. Product, service, and media ventures — all under one engine.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&family=Orbitron:wght@700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Phosphor Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web@2.0.3"></script>
+  
+  <style>
+    /* ========================================
+       3ND.DEV — Cinematic Dark Website
+       ======================================== */
+    
+    :root {
+      --bg-primary: #0a0a0a;
+      --bg-secondary: #111111;
+      --bg-card: #1a1a1a;
+      --purple: #9D4EDD;
+      --purple-glow: rgba(157, 78, 221, 0.5);
+      --red: #FF4500;
+      --red-glow: rgba(255, 69, 0, 0.4);
+      --blue: #00B4D8;
+      --blue-glow: rgba(0, 180, 216, 0.4);
+      --pink: #FF006E;
+      --pink-glow: rgba(255, 0, 110, 0.4);
+      --white: #FFFFFF;
+      --gray: #A0A0A0;
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-label: 'Rajdhani', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      --font-tech: 'Orbitron', sans-serif;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      background: var(--bg-primary);
+      color: var(--white);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      overflow-x: hidden;
+      font-size: 17px;
+    }
+    
+    /* Noise Texture Overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    }
+    
+    /* ========================================
+       NAVIGATION
+       ======================================== */
+    
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(180deg, rgba(10,10,10,0.6) 0%, rgba(10,10,10,0) 100%);
+      transition: background 0.3s ease, padding 0.3s ease;
+    }
+    
+    nav.scrolled {
+      background: rgba(10, 10, 10, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 12px 40px;
+    }
+    
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 32px;
+      color: var(--white);
+      text-decoration: none;
+      text-shadow: 0 0 20px var(--purple-glow), 0 0 40px var(--purple-glow);
+      letter-spacing: 2px;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      list-style: none;
+    }
+    
+    .nav-links a {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--gray);
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+    
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--purple);
+      box-shadow: 0 0 10px var(--purple);
+      transition: width 0.3s ease;
+    }
+    
+    .nav-links a:hover {
+      color: var(--white);
+    }
+    
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+    
+    /* Mobile Menu Toggle */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      cursor: pointer;
+      z-index: 1001;
+    }
+    
+    .menu-toggle span {
+      width: 28px;
+      height: 2px;
+      background: var(--white);
+      transition: all 0.3s ease;
+    }
+    
+    /* ========================================
+       HERO SECTION
+       ======================================== */
+    
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      padding: 120px 20px 80px;
+      background: 
+        radial-gradient(ellipse at 50% 50%, rgba(157, 78, 221, 0.2) 0%, transparent 60%),
+        linear-gradient(180deg, rgba(10, 10, 10, 0.7) 0%, rgba(10, 10, 10, 0.95) 100%);
+    }
+    
+    #hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    
+    #hero-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+    
+    /* Grid Pattern Background */
+    #hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        linear-gradient(rgba(157, 78, 221, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 78, 221, 0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+    
+    /* Palm Silhouettes */
+    #hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 300px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 300'%3E%3Cpath fill='%23111111' d='M0,300 L0,200 Q100,180 150,220 Q120,150 80,100 Q150,130 200,80 Q250,140 220,200 Q300,150 350,100 Q400,160 380,220 Q450,180 500,220 L500,300 Z'/%3E%3Cpath fill='%231a1a1a' d='M400,300 L400,220 Q500,180 550,220 Q520,150 480,100 Q550,130 600,80 Q650,140 620,200 Q700,150 750,100 Q800,160 780,220 Q850,180 900,220 L900,300 Z'/%3E%3Cpath fill='%23111111' d='M700,300 L700,200 Q800,160 850,200 Q820,120 770,70 Q850,100 900,50 Q960,110 930,180 Q1010,130 1070,80 Q1130,150 1100,220 Q1160,180 1200,220 L1200,300 Z'/%3E%3C/svg%3E") no-repeat bottom center;
+      background-size: cover;
+      pointer-events: none;
+      opacity: 0.6;
+    }
+    
+    .hero-logo {
+      width: 40vw;
+      max-width: 400px;
+      height: 40vw;
+      max-height: 400px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 48px;
+      box-shadow: 
+        0 0 100px var(--purple-glow),
+        0 0 180px rgba(157, 78, 221, 0.5);
+      animation: logoPulse 3s ease-in-out infinite;
+      position: relative;
+      z-index: 1;
+    }
+    
+    @keyframes logoPulse {
+      0%, 100% { box-shadow: 0 0 60px var(--purple-glow), 0 0 100px rgba(157, 78, 221, 0.3); }
+      50% { box-shadow: 0 0 80px var(--purple-glow), 0 0 120px rgba(157, 78, 221, 0.5); }
+    }
+    
+    .hero-headline {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 14vw, 120px);
+      line-height: 1;
+      letter-spacing: 6px;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+      text-shadow: 0 0 40px var(--purple-glow);
+    }
+    
+    .hero-tagline {
+      font-family: var(--font-label);
+      font-size: clamp(16px, 4vw, 28px);
+      font-weight: 500;
+      color: var(--gray);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      position: relative;
+      z-index: 1;
+      line-height: 1.4;
+    }
+    
+    .hero-tagline span {
+      color: var(--purple);
+      text-shadow: 0 0 20px var(--purple-glow);
+    }
+    
+    .scroll-indicator {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1;
+      animation: bounce 2s ease-in-out infinite;
+    }
+    
+    .scroll-indicator i {
+      font-size: 32px;
+      color: var(--purple);
+      text-shadow: 0 0 20px var(--purple-glow);
+    }
+    
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(10px); }
+    }
+    
+    /* ========================================
+       SECTION STYLES
+       ======================================== */
+    
+    section {
+      padding: 120px 40px;
+      position: relative;
+    }
+    
+    .section-header {
+      text-align: center;
+      margin-bottom: 80px;
+    }
+    
+    .section-label {
+      font-family: var(--font-tech);
+      font-size: 12px;
+      color: var(--purple);
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      display: block;
+    }
+    
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 6vw, 72px);
+      letter-spacing: 4px;
+    }
+    
+    /* ========================================
+       FOUNDERS SECTION
+       ======================================== */
+    
+    #founders {
+      background: var(--bg-secondary);
+    }
+    
+    .founders-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .founder-card {
+      background: var(--bg-card);
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    
+    .founder-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .founder-card:hover {
+      transform: translateY(-8px);
+    }
+    
+    .founder-card.dan { box-shadow: 0 4px 30px var(--red-glow); }
+    .founder-card.dan:hover { box-shadow: 0 8px 50px var(--red-glow); }
+    
+    .founder-card.ryan { box-shadow: 0 4px 30px var(--blue-glow); }
+    .founder-card.ryan:hover { box-shadow: 0 8px 50px var(--blue-glow); }
+    
+    .founder-card.jay { box-shadow: 0 4px 30px var(--pink-glow); }
+    .founder-card.jay:hover { box-shadow: 0 8px 50px var(--pink-glow); }
+    
+    .founder-stripe {
+      height: 4px;
+    }
+    
+    .founder-card.dan .founder-stripe { background: linear-gradient(90deg, var(--red), #FF6B35); }
+    .founder-card.ryan .founder-stripe { background: linear-gradient(90deg, var(--blue), #48CAE4); }
+    .founder-card.jay .founder-stripe { background: linear-gradient(90deg, var(--pink), #FF85A1); }
+    
+    .founder-content {
+      padding: 32px;
+    }
+    
+    .founder-name {
+      font-family: var(--font-display);
+      font-size: 36px;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+    }
+    
+    .founder-label {
+      font-family: var(--font-label);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    
+    .founder-card.dan .founder-label { color: var(--red); }
+    .founder-card.ryan .founder-label { color: var(--blue); }
+    .founder-card.jay .founder-label { color: var(--pink); }
+    
+    .founder-desc {
+      color: var(--gray);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+    
+    /* ========================================
+       VENTURES SECTION
+       ======================================== */
+    
+    #ventures {
+      background: var(--bg-primary);
+    }
+    
+    .ventures-empty {
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: center;
+      padding: 60px 40px;
+      background: var(--bg-card);
+      border-radius: 20px;
+      border: 1px solid rgba(157, 78, 221, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .ventures-empty::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(157, 78, 221, 0.08) 0%, transparent 50%);
+      animation: brewPulse 4s ease-in-out infinite;
+    }
+    
+    @keyframes brewPulse {
+      0%, 100% { transform: scale(1); opacity: 0.5; }
+      50% { transform: scale(1.1); opacity: 1; }
+    }
+    
+    .ventures-icon {
+      font-size: 64px;
+      margin-bottom: 24px;
+      position: relative;
+      z-index: 1;
+      color: var(--purple);
+      text-shadow: 0 0 30px var(--purple-glow);
+    }
+    
+    .ventures-label {
+      font-family: var(--font-display);
+      font-size: 32px;
+      letter-spacing: 4px;
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .ventures-desc {
+      color: var(--gray);
+      font-size: 16px;
+      position: relative;
+      z-index: 1;
+      max-width: 400px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+    
+    .ventures-grid {
+      display: none;
+    }
+    
+    .venture-card {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 1px solid transparent;
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    
+    .venture-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .venture-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--purple);
+      box-shadow: 0 8px 40px var(--purple-glow);
+    }
+    
+    .venture-card.soon::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 120px;
+      height: 120px;
+      background: linear-gradient(135deg, transparent 50%, var(--bg-secondary) 50%);
+    }
+    
+    .venture-badge {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: var(--purple);
+      color: var(--white);
+      font-family: var(--font-label);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: 20px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    
+    .venture-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      font-size: 28px;
+    }
+    
+    .venture-card.dandito .venture-icon { background: rgba(255, 69, 0, 0.15); color: var(--red); }
+    .venture-card.pool .venture-icon { background: rgba(0, 180, 216, 0.15); color: var(--blue); }
+    .venture-card.podcast .venture-icon { background: rgba(255, 0, 110, 0.15); color: var(--pink); }
+    .venture-card.future .venture-icon { background: rgba(157, 78, 221, 0.15); color: var(--purple); }
+    
+    .venture-name {
+      font-family: var(--font-display);
+      font-size: 28px;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+    }
+    
+    .venture-desc {
+      color: var(--gray);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    
+    /* ========================================
+       PROCESS SECTION
+       ======================================== */
+    
+    #process {
+      background: var(--bg-secondary);
+    }
+    
+    .process-timeline {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+    }
+    
+    .process-timeline::before {
+      content: '';
+      position: absolute;
+      top: 45px;
+      left: 10%;
+      right: 10%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--purple), var(--blue), var(--pink), var(--purple));
+      box-shadow: 0 0 15px var(--purple-glow);
+    }
+    
+    .process-step {
+      flex: 1;
+      text-align: center;
+      position: relative;
+      padding: 0 20px;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    
+    .process-step.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .process-icon {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: var(--bg-card);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      position: relative;
+      z-index: 1;
+      border: 2px solid var(--purple);
+      box-shadow: 0 0 30px var(--purple-glow);
+      transition: all 0.3s ease;
+    }
+    
+    .process-step:nth-child(1) .process-icon { border-color: var(--purple); box-shadow: 0 0 30px var(--purple-glow); }
+    .process-step:nth-child(2) .process-icon { border-color: var(--blue); box-shadow: 0 0 30px var(--blue-glow); }
+    .process-step:nth-child(3) .process-icon { border-color: var(--pink); box-shadow: 0 0 30px var(--pink-glow); }
+    .process-step:nth-child(4) .process-icon { border-color: var(--purple); box-shadow: 0 0 30px var(--purple-glow); }
+    
+    .process-icon i {
+      font-size: 36px;
+    }
+    
+    .process-step:nth-child(1) .process-icon i { color: var(--purple); }
+    .process-step:nth-child(2) .process-icon i { color: var(--blue); }
+    .process-step:nth-child(3) .process-icon i { color: var(--pink); }
+    .process-step:nth-child(4) .process-icon i { color: var(--purple); }
+    
+    .process-num {
+      font-family: var(--font-tech);
+      font-size: 12px;
+      color: var(--purple);
+      margin-bottom: 8px;
+      letter-spacing: 2px;
+    }
+    
+    .process-label {
+      font-family: var(--font-display);
+      font-size: 28px;
+      letter-spacing: 3px;
+      margin-bottom: 12px;
+    }
+    
+    .process-desc {
+      color: var(--gray);
+      font-size: 14px;
+      max-width: 200px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+    
+    /* ========================================
+       LIFESTYLE SECTION
+       ======================================== */
+    
+    #lifestyle {
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .lifestyle-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    
+    .lifestyle-bg-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+    
+    .lifestyle-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(10, 10, 10, 0.85) 0%, rgba(10, 10, 10, 0.95) 100%);
+    }
+    
+    .lifestyle-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      padding: 0 20px;
+    }
+    
+    .lifestyle-headline {
+      font-family: var(--font-display);
+      font-size: clamp(40px, 8vw, 88px);
+      letter-spacing: 6px;
+      margin-bottom: 24px;
+      text-shadow: 0 0 40px var(--purple-glow);
+    }
+    
+    .lifestyle-sub {
+      font-family: var(--font-label);
+      font-size: 18px;
+      color: var(--gray);
+      letter-spacing: 3px;
+    }
+    
+    /* ========================================
+       TEAM BREAK SECTION
+       ======================================== */
+    
+    .teambreak-section {
+      min-height: 50vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .teambreak-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    
+    .teambreak-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+    
+    .teambreak-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(10, 10, 10, 0.7) 0%, rgba(10, 10, 10, 0.9) 100%);
+    }
+    
+    .teambreak-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 0 20px;
+    }
+    
+    .teambreak-text {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 6vw, 56px);
+      letter-spacing: 8px;
+      color: var(--white);
+      text-shadow: 0 0 30px var(--purple-glow);
+    }
+    
+    /* ========================================
+       FOOTER
+       ======================================== */
+    
+    footer {
+      background: var(--bg-primary);
+      padding: 60px 40px;
+      text-align: center;
+      border-top: 1px solid rgba(157, 78, 221, 0.2);
+    }
+    
+    .footer-logo {
+      font-family: var(--font-display);
+      font-size: 36px;
+      color: var(--white);
+      margin-bottom: 8px;
+      text-shadow: 0 0 20px var(--purple-glow);
+    }
+    
+    .footer-tagline {
+      font-family: var(--font-label);
+      font-size: 14px;
+      color: var(--gray);
+      letter-spacing: 3px;
+      margin-bottom: 32px;
+    }
+    
+    .footer-socials {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+    
+    .footer-socials a {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--bg-card);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gray);
+      font-size: 22px;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+    
+    .footer-socials a:hover {
+      color: var(--white);
+      background: var(--purple);
+      box-shadow: 0 0 20px var(--purple-glow);
+      transform: translateY(-4px);
+    }
+    
+    .footer-copy {
+      font-size: 13px;
+      color: var(--gray);
+    }
+    
+    .footer-copy span {
+      color: var(--purple);
+    }
+    
+    /* ========================================
+       MOBILE RESPONSIVE
+       ======================================== */
+    
+    @media (max-width: 768px) {
+      nav {
+        padding: 16px 20px;
+      }
+      
+      .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 280px;
+        height: 100vh;
+        background: var(--bg-secondary);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 32px;
+        transition: right 0.4s ease;
+      }
+      
+      .nav-links.open {
+        right: 0;
+      }
+      
+      .nav-links a {
+        font-size: 18px;
+      }
+      
+      .menu-toggle {
+        display: flex;
+      }
+      
+      .menu-toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(6px, 6px);
+      }
+      
+      .menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+      }
+      
+      .menu-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(6px, -6px);
+      }
+      
+      section {
+        padding: 80px 20px;
+      }
+      
+      .section-header {
+        margin-bottom: 48px;
+      }
+      
+      .founders-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .ventures-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .process-timeline {
+        flex-direction: column;
+        gap: 40px;
+      }
+      
+      .process-timeline::before {
+        display: none;
+      }
+      
+      .process-step {
+        padding: 0;
+      }
+      
+      .hero-logo {
+        width: 80vw;
+        height: 80vw;
+        max-width: 320px;
+        max-height: 320px;
+      }
+      
+      #lifestyle {
+        min-height: 400px;
+      }
+    }
+    
+    /* ========================================
+       ANIMATIONS
+       ======================================== */
+    
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* Stagger delays for children */
+    .stagger-1 { transition-delay: 0.1s; }
+    .stagger-2 { transition-delay: 0.2s; }
+    .stagger-3 { transition-delay: 0.3s; }
+    .stagger-4 { transition-delay: 0.4s; }
+  </style>
+</head>
+<body>
+  
+  <!-- NAVIGATION -->
+  <nav id="navbar">
+    <a href="#hero" class="nav-logo">3ND.DEV</a>
+    <ul class="nav-links">
+      <li><a href="#founders">Founders</a></li>
+      <li><a href="#ventures">Ventures</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="menu-toggle" id="menuToggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
+  
+  <!-- HERO -->
+  <section id="hero">
+    <div id="hero-bg">
+      <img src="./3nd-team-coding.jpg" alt="3ND Team">
+    </div>
+    <img src="./3nddev-logo.jpg" alt="3ND.DEV Logo" class="hero-logo">
+    <h1 class="hero-headline">WE BUILD VENTURES</h1>
+    <p class="hero-tagline">Three Minds. Multiple Businesses. <span>One Engine.</span></p>
+    <div class="scroll-indicator">
+      <i class="ph ph-caret-double-down"></i>
+    </div>
+  </section>
+  
+  <!-- FOUNDERS -->
+  <section id="founders">
+    <div class="section-header fade-in">
+      <span class="section-label">The Crew</span>
+      <h2 class="section-title">THE FOUNDERS</h2>
+    </div>
+    
+    <div class="founders-grid">
+      <div class="founder-card dan stagger-1">
+        <div class="founder-stripe"></div>
+        <div class="founder-content">
+          <h3 class="founder-name">SAUCY DAN</h3>
+          <p class="founder-label">Product / Flavor / Chaos</p>
+          <p class="founder-desc">The one who turns ideas into physical products you can taste, hold, and love. If it involves heat, heart, or brand — Dan makes it happen.</p>
+        </div>
+      </div>
+      
+      <div class="founder-card ryan stagger-2">
+        <div class="founder-stripe"></div>
+        <div class="founder-content">
+          <h3 class="founder-name">RYAN</h3>
+          <p class="founder-label">Systems / Service / Execution</p>
+          <p class="founder-desc">The operator. Ryan turns complexity into clean systems and service businesses that run like clockwork. No chaos, just results.</p>
+        </div>
+      </div>
+      
+      <div class="founder-card jay stagger-3">
+        <div class="founder-stripe"></div>
+        <div class="founder-content">
+          <h3 class="founder-name">PODCAST JAY</h3>
+          <p class="founder-label">Media / Audience / Growth</p>
+          <p class="founder-desc">The growth engine. Jay builds audiences, creates content, and turns listeners into customers. The brand multiplier.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- VENTURES -->
+  <section id="ventures">
+    <div class="section-header fade-in">
+      <span class="section-label">What We Build</span>
+      <h2 class="section-title">OUR VENTURES</h2>
+    </div>
+    
+    <div class="ventures-empty">
+        <div class="ventures-icon">
+          <i class="ph ph-beer-bottle"></i>
+        </div>
+        <h3 class="ventures-label">SOMETHING'S BREWING</h3>
+        <p class="ventures-desc">We're building. Stay tuned — the next big thing is almost here.</p>
+      </div>
+  </section>
+  
+  <!-- PROCESS -->
+  <section id="process">
+    <div class="section-header fade-in">
+      <span class="section-label">How We Work</span>
+      <h2 class="section-title">HOW WE BUILD</h2>
+    </div>
+    
+    <div class="process-timeline">
+      <div class="process-step stagger-1">
+        <div class="process-icon">
+          <i class="ph ph-lightbulb"></i>
+        </div>
+        <p class="process-num">01</p>
+        <h3 class="process-label">IDEA</h3>
+        <p class="process-desc">Identify opportunities across industries</p>
+      </div>
+      
+      <div class="process-step stagger-2">
+        <div class="process-icon">
+          <i class="ph ph-hammer"></i>
+        </div>
+        <p class="process-num">02</p>
+        <h3 class="process-label">BUILD</h3>
+        <p class="process-desc">Develop, test, and create</p>
+      </div>
+      
+      <div class="process-step stagger-3">
+        <div class="process-icon">
+          <i class="ph ph-rocket"></i>
+        </div>
+        <p class="process-num">03</p>
+        <h3 class="process-label">LAUNCH</h3>
+        <p class="process-desc">Get it to market and validated</p>
+      </div>
+      
+      <div class="process-step stagger-4">
+        <div class="process-icon">
+          <i class="ph ph-chart-line-up"></i>
+        </div>
+        <p class="process-num">04</p>
+        <h3 class="process-label">SCALE</h3>
+        <p class="process-desc">Grow and expand the ecosystem</p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- LIFESTYLE / TEAM SECTION -->
+  <section id="lifestyle">
+    <div class="lifestyle-bg">
+      <img src="./3nd-team-coding.jpg" alt="3ND Team" class="lifestyle-bg-img">
+      <div class="lifestyle-overlay"></div>
+    </div>
+    <div class="lifestyle-content fade-in">
+      <h2 class="lifestyle-headline">WORK HARD. HELP PEOPLE. LIVE FREE.</h2>
+      <p class="lifestyle-sub">We build because we love it. We win together.</p>
+    </div>
+  </section>
+  
+  <!-- TEAM BREAK -->
+  <section id="teambreak" class="teambreak-section">
+    <div class="teambreak-bg">
+      <img src="./3nd-behind-scenes.jpg" alt="3ND Behind The Scenes" class="teambreak-img">
+      <div class="teambreak-overlay"></div>
+    </div>
+    <div class="teambreak-content fade-in">
+      <p class="teambreak-text">FROM IDEA TO REALITY</p>
+    </div>
+  </section>
+  
+  <!-- FOOTER -->
+  <footer id="contact">
+    <div class="footer-logo">3ND.DEV</div>
+    <p class="footer-tagline">THREE MINDS. MULTIPLE BUSINESSES. ONE ENGINE.</p>
+    <div class="footer-socials">
+      <a href="#" aria-label="Instagram"><i class="ph ph-instagram-logo"></i></a>
+      <a href="#" aria-label="Twitter"><i class="ph ph-x-logo"></i></a>
+      <a href="#" aria-label="YouTube"><i class="ph ph-youtube-logo"></i></a>
+      <a href="#" aria-label="TikTok"><i class="ph ph-tiktok-logo"></i></a>
+    </div>
+    <p class="footer-copy">© 2026 <span>ThreeNudeDudes</span>. All rights reserved.</p>
+  </footer>
+  
+  <script>
+    // ========================================
+    // 3ND.DEV — Interactive Features
+    // ========================================
+    
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+    
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.querySelector('.nav-links');
+    
+    menuToggle.addEventListener('click', () => {
+      menuToggle.classList.toggle('active');
+      navLinks.classList.toggle('open');
+    });
+    
+    // Close mobile menu on link click
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        menuToggle.classList.remove('active');
+        navLinks.classList.remove('open');
+      });
+    });
+    
+    // Intersection Observer for scroll animations
+    const observerOptions = {
+      threshold: 0.15,
+      rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+    
+    // Observe all animated elements
+    document.querySelectorAll('.fade-in, .founder-card, .venture-card, .process-step').forEach(el => {
+      observer.observe(el);
+    });
+    
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
