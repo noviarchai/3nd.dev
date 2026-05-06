@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SEOForge — AI SEO Intelligence</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #0a0a0f;
+      --surface: #12121a;
+      --surface2: #1a1a25;
+      --primary: #9D4EDD;
+      --primary-glow: rgba(157,78,221,0.3);
+      --accent: #00FF88;
+      --accent2: #FF3366;
+      --cyan: #00D4FF;
+      --text: #E0E0E0;
+      --text2: #888;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+    
+    /* Header */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 0;
+      border-bottom: 1px solid #222;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--primary), var(--cyan));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    .logo h1 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 24px;
+      background: linear-gradient(90deg, var(--primary), var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .neural-counter {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      color: var(--accent);
+      background: rgba(0,255,136,0.1);
+      padding: 8px 16px;
+      border-radius: 20px;
+      border: 1px solid rgba(0,255,136,0.3);
+    }
+    .neural-counter .pulse {
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.5); }
+    }
+    
+    /* Neural Growth Animation */
+    .evolution-panel {
+      background: var(--surface);
+      border: 1px solid #222;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 20px 0;
+      display: none;
+      position: relative;
+      overflow: hidden;
+    }
+    .evolution-panel.active {
+      display: block;
+    }
+    .evolution-panel::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(157,78,221,0.2), transparent);
+      animation: scanline 1.5s linear infinite;
+    }
+    @keyframes scanline {
+      to { left: 100%; }
+    }
+    .evolution-title {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--cyan);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+    }
+    .evolution-text {
+      font-size: 16px;
+      color: var(--text);
+    }
+    .evolution-text span { color: var(--accent); font-weight: 600; }
+
+    /* Analyzer Section */
+    .analyzer-section {
+      background: var(--surface);
+      border: 1px solid #222;
+      border-radius: 12px;
+      padding: 30px;
+      margin: 20px 0;
+    }
+    .input-group {
+      display: flex;
+      gap: 12px;
+    }
+    input[type="text"] {
+      flex: 1;
+      background: var(--bg);
+      border: 1px solid #333;
+      border-radius: 8px;
+      padding: 14px 18px;
+      font-size: 16px;
+      color: var(--text);
+      font-family: 'JetBrains Mono', monospace;
+      transition: border-color 0.15s;
+    }
+    input[type="text"]:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 20px var(--primary-glow);
+    }
+    .btn {
+      background: linear-gradient(135deg, var(--primary), #7b2cbf);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 14px 28px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px var(--primary-glow);
+    }
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+    .btn .spinner {
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Score Ring */
+    .score-section {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 30px;
+      margin: 30px 0;
+    }
+    .score-ring-container {
+      text-align: center;
+    }
+    .score-ring {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: conic-gradient(var(--accent) 0deg, var(--accent) var(--score-deg, 0deg), #222 var(--score-deg, 0deg));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .score-ring::before {
+      content: '';
+      position: absolute;
+      width: 140px;
+      height: 140px;
+      background: var(--bg);
+      border-radius: 50%;
+    }
+    .score-value {
+      position: relative;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 48px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .score-label {
+      font-size: 12px;
+      color: var(--text2);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-top: 8px;
+    }
+    .score-breakdown {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    .score-card {
+      background: var(--surface2);
+      border-radius: 10px;
+      padding: 16px;
+      border-left: 3px solid var(--primary);
+    }
+    .score-card-label {
+      font-size: 11px;
+      color: var(--text2);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .score-card-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 28px;
+      font-weight: 700;
+      margin: 4px 0;
+    }
+    .score-card.bar-onpage .score-card-value { color: var(--accent); }
+    .score-card.bar-technical .score-card-value { color: var(--cyan); }
+    .score-card.bar-content .score-card-value { color: #FFB800; }
+    .score-card.bar-authority .score-card-value { color: var(--primary); }
+    .score-bar {
+      height: 4px;
+      background: #222;
+      border-radius: 2px;
+      margin-top: 8px;
+      overflow: hidden;
+    }
+    .score-bar-fill {
+      height: 100%;
+      border-radius: 2px;
+      transition: width 0.5s ease;
+    }
+    .bar-onpage .score-bar-fill { background: var(--accent); }
+    .bar-technical .score-bar-fill { background: var(--cyan); }
+    .bar-content .score-bar-fill { background: #FFB800; }
+    .bar-authority .score-bar-fill { background: var(--primary); }
+
+    /* Issues Section */
+    .issues-grid {
+      display: grid;
+      gap: 10px;
+      margin-top: 16px;
+    }
+    .issue-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      background: var(--surface2);
+      border-radius: 8px;
+      border-left: 3px solid;
+    }
+    .issue-item.critical { border-color: var(--accent2); }
+    .issue-item.high { border-color: #FFB800; }
+    .issue-item.medium { border-color: var(--cyan); }
+    .issue-item.low { border-color: var(--text2); }
+    .issue-icon {
+      font-size: 18px;
+    }
+    .issue-text {
+      flex: 1;
+      font-size: 14px;
+    }
+    .issue-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--text2);
+      background: #222;
+      padding: 4px 8px;
+      border-radius: 4px;
+    }
+
+    /* Recommendations */
+    .recs-grid {
+      display: grid;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .rec-item {
+      background: var(--surface2);
+      border-radius: 10px;
+      padding: 20px;
+      border: 1px solid #333;
+      transition: all 0.15s;
+    }
+    .rec-item:hover {
+      border-color: var(--primary);
+      box-shadow: 0 0 20px var(--primary-glow);
+    }
+    .rec-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .rec-priority {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 4px;
+      letter-spacing: 1px;
+    }
+    .rec-priority.critical { background: rgba(255,51,102,0.2); color: var(--accent2); }
+    .rec-priority.high { background: rgba(255,184,0,0.2); color: #FFB800; }
+    .rec-priority.medium { background: rgba(0,212,255,0.2); color: var(--cyan); }
+    .rec-priority.low { background: rgba(136,136,136,0.2); color: var(--text2); }
+    .rec-impact {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--accent);
+    }
+    .rec-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .rec-desc {
+      font-size: 14px;
+      color: var(--text2);
+      line-height: 1.5;
+    }
+    .rec-tag {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--primary);
+      background: rgba(157,78,221,0.15);
+      padding: 4px 8px;
+      border-radius: 4px;
+      margin-top: 10px;
+    }
+
+    /* Keywords */
+    .keywords-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 16px;
+    }
+    .keywords-table th {
+      text-align: left;
+      font-size: 11px;
+      color: var(--text2);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 10px;
+      border-bottom: 1px solid #222;
+    }
+    .keywords-table td {
+      padding: 12px 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      border-bottom: 1px solid #1a1a25;
+    }
+    .keyword-bar {
+      width: 60px;
+      height: 6px;
+      background: #222;
+      border-radius: 3px;
+      display: inline-block;
+      overflow: hidden;
+      vertical-align: middle;
+      margin-left: 8px;
+    }
+    .keyword-bar-fill {
+      height: 100%;
+      background: var(--primary);
+      border-radius: 3px;
+    }
+
+    /* Learnings Log */
+    .learnings-panel {
+      background: var(--surface);
+      border: 1px solid #222;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+    .learnings-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      color: var(--cyan);
+      margin-bottom: 16px;
+    }
+    .learning-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px;
+      background: var(--surface2);
+      border-radius: 6px;
+      margin-bottom: 8px;
+      font-size: 13px;
+    }
+    .learning-icon { color: var(--accent); }
+    .learning-rate {
+      margin-left: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--accent);
+    }
+
+    /* Self-Improve Panel */
+    .self-panel {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin: 20px 0;
+    }
+    .self-stat {
+      background: var(--surface);
+      border: 1px solid #222;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+    }
+    .self-stat-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    .self-stat-label {
+      font-size: 12px;
+      color: var(--text2);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 4px;
+    }
+
+    /* Sections */
+    .section {
+      background: var(--surface);
+      border: 1px solid #222;
+      border-radius: 12px;
+      padding: 24px;
+      margin: 20px 0;
+    }
+    .section-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      color: var(--text);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-title::before {
+      content: '';
+      width: 4px;
+      height: 20px;
+      background: var(--primary);
+      border-radius: 2px;
+    }
+
+    /* History */
+    .history-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .history-table th {
+      text-align: left;
+      font-size: 11px;
+      color: var(--text2);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 12px;
+      border-bottom: 1px solid #222;
+    }
+    .history-table td {
+      padding: 14px 12px;
+      font-size: 14px;
+      border-bottom: 1px solid #1a1a25;
+    }
+    .history-url {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--cyan);
+      text-decoration: none;
+      max-width: 300px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      display: block;
+    }
+    .history-score {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+    }
+    .history-score.good { color: var(--accent); }
+    .history-score.medium { color: #FFB800; }
+    .history-score.bad { color: var(--accent2); }
+
+    /* Insights */
+    .insights-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .insight-card {
+      background: var(--surface2);
+      border-radius: 8px;
+      padding: 16px;
+      border-left: 3px solid var(--accent);
+    }
+    .insight-pattern {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+    .insight-rec {
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+    .insight-stats {
+      display: flex;
+      justify-content: space-between;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text2);
+    }
+    .success-bar {
+      height: 4px;
+      background: #222;
+      border-radius: 2px;
+      margin-top: 8px;
+      overflow: hidden;
+    }
+    .success-bar-fill {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    /* Loading overlay */
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(10,10,15,0.95);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+    .loading-overlay.active { display: flex; }
+    .loading-content {
+      text-align: center;
+    }
+    .loading-ring {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 3px solid #222;
+      border-top-color: var(--primary);
+      animation: spin 1s linear infinite;
+      margin: 0 auto 20px;
+    }
+    .loading-text {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--cyan);
+      font-size: 14px;
+    }
+
+    /* Hidden class */
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">
+        <div class="logo-icon">⚡</div>
+        <h1>SEOForge</h1>
+      </div>
+      <div class="neural-counter">
+        <div class="pulse"></div>
+        <span>Neural Engine: <span id="neuralCount">0</span> learnings</span>
+      </div>
+    </header>
+
+    <!-- Evolution Panel -->
+    <div id="evolutionPanel" class="evolution-panel">
+      <div class="evolution-title">⟨ Engine Self-Improving ⟩</div>
+      <div class="evolution-text" id="evolutionText">
+        Analyzing patterns... Found <span id="evolvingPatterns">0</span> successful patterns. Recalculating recommendation weights...
+      </div>
+    </div>
+
+    <!-- Self-Improve Stats -->
+    <div class="self-panel">
+      <div class="self-stat">
+        <div class="self-stat-value" id="totalAnalyses">0</div>
+        <div class="self-stat-label">Total Analyses</div>
+      </div>
+      <div class="self-stat">
+        <div class="self-stat-value" id="totalInsights">0</div>
+        <div class="self-stat-label">Learned Patterns</div>
+      </div>
+      <div class="self-stat">
+        <div class="self-stat-value" id="avgImprovement">0%</div>
+        <div class="self-stat-label">Avg Score Delta</div>
+      </div>
+    </div>
+
+    <!-- Analyzer -->
+    <div class="analyzer-section">
+      <div class="input-group">
+        <input type="text" id="urlInput" placeholder="https://example.com" onkeypress="if(event.key==='Enter')analyze()">
+        <button class="btn" id="analyzeBtn" onclick="analyze()">
+          <span id="btnText">Analyze</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div id="resultsSection" class="hidden">
+      <!-- Score Ring -->
+      <div class="score-section">
+        <div class="score-ring-container">
+          <div class="score-ring" id="scoreRing" style="--score-deg: 0deg">
+            <div class="score-value" id="overallScore">0</div>
+          </div>
+          <div class="score-label">Overall Score</div>
+        </div>
+        <div class="score-breakdown">
+          <div class="score-card bar-onpage">
+            <div class="score-card-label">On-Page</div>
+            <div class="score-card-value" id="onpageScore">0</div>
+            <div class="score-bar"><div class="score-bar-fill" id="onpageBar" style="width:0%"></div></div>
+          </div>
+          <div class="score-card bar-technical">
+            <div class="score-card-label">Technical</div>
+            <div class="score-card-value" id="technicalScore">0</div>
+            <div class="score-bar"><div class="score-bar-fill" id="technicalBar" style="width:0%"></div></div>
+          </div>
+          <div class="score-card bar-content">
+            <div class="score-card-label">Content</div>
+            <div class="score-card-value" id="contentScore">0</div>
+            <div class="score-bar"><div class="score-bar-fill" id="contentBar" style="width:0%"></div></div>
+          </div>
+          <div class="score-card bar-authority">
+            <div class="score-card-label">Authority</div>
+            <div class="score-card-value" id="authorityScore">0</div>
+            <div class="score-bar"><div class="score-bar-fill" id="authorityBar" style="width:0%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Technical Issues -->
+      <div class="section">
+        <div class="section-title">Technical Issues</div>
+        <div class="issues-grid" id="issuesGrid"></div>
+      </div>
+
+      <!-- Keywords -->
+      <div class="section">
+        <div class="section-title">Keyword Intelligence</div>
+        <table class="keywords-table">
+          <thead>
+            <tr>
+              <th>Keyword</th>
+              <th>Count</th>
+              <th>Density</th>
+              <th>Distribution</th>
+            </tr>
+          </thead>
+          <tbody id="keywordsBody"></tbody>
+        </table>
+      </div>
+
+      <!-- AI Recommendations -->
+      <div class="section">
+        <div class="section-title">AI Recommendations</div>
+        <div class="recs-grid" id="recsGrid"></div>
+      </div>
+
+      <!-- Learnings Log -->
+      <div class="learnings-panel">
+        <div class="learnings-title">📚 This Session's Learnings</div>
+        <div id="learningsLog"></div>
+      </div>
+    </div>
+
+    <!-- History -->
+    <div class="section">
+      <div class="section-title">Analysis History</div>
+      <table class="history-table">
+        <thead>
+          <tr>
+            <th>URL</th>
+            <th>Score</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody id="historyBody"></tbody>
+      </table>
+    </div>
+
+    <!-- Learned Insights -->
+    <div class="section">
+      <div class="section-title">Neural Engine Insights</div>
+      <div class="insights-grid" id="insightsGrid"></div>
+    </div>
+  </div>
+
+  <!-- Loading Overlay -->
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="loading-content">
+      <div class="loading-ring"></div>
+      <div class="loading-text" id="loadingText">Analyzing site...</div>
+    </div>
+  </div>
+
+  <script>
+    let currentAnalysisId = null;
+
+    async function analyze() {
+      const url = document.getElementById('urlInput').value.trim();
+      if (!url) return;
+
+      const btn = document.getElementById('analyzeBtn');
+      const btnText = document.getElementById('btnText');
+      btn.disabled = true;
+      btnText.innerHTML = '<div class="spinner"></div> Analyzing...';
+
+      document.getElementById('loadingOverlay').classList.add('active');
+      document.getElementById('loadingText').textContent = 'Fetching page data...';
+
+      try {
+        const res = await fetch('/api/analyze', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ url })
+        });
+
+        if (!res.ok) throw new Error('Analysis failed');
+        
+        document.getElementById('loadingText').textContent = 'Generating AI recommendations...';
+        const data = await res.json();
+        currentAnalysisId = data.id;
+
+        // Show evolution if self-improvement happened
+        if (data.self_improvement && data.self_improvement.retrained) {
+          showEvolution(data.self_improvement);
+        }
+
+        displayResults(data);
+        await loadStats();
+        await loadHistory();
+        await loadInsights();
+
+      } catch (e) {
+        alert('Analysis failed: ' + e.message);
+      } finally {
+        btn.disabled = false;
+        btnText.textContent = 'Analyze';
+        document.getElementById('loadingOverlay').classList.remove('active');
+      }
+    }
+
+    function showEvolution(improvement) {
+      const panel = document.getElementById('evolutionPanel');
+      const text = document.getElementById('evolvingPatterns');
+      text.textContent = improvement.patterns_updated;
+      panel.classList.add('active');
+      setTimeout(() => panel.classList.remove('active'), 5000);
+    }
+
+    function displayResults(data) {
+      document.getElementById('resultsSection').classList.remove('hidden');
+
+      // Score ring
+      const scoreDeg = (data.overall_score / 100) * 360;
+      document.getElementById('scoreRing').style.setProperty('--score-deg', scoreDeg + 'deg');
+      document.getElementById('overallScore').textContent = data.overall_score;
+
+      // Breakdown scores
+      document.getElementById('onpageScore').textContent = data.onpage_score;
+      document.getElementById('technicalScore').textContent = data.technical_score;
+      document.getElementById('contentScore').textContent = data.content_score;
+      document.getElementById('authorityScore').textContent = data.authority_score;
+      document.getElementById('onpageBar').style.width = data.onpage_score + '%';
+      document.getElementById('technicalBar').style.width = data.technical_score + '%';
+      document.getElementById('contentBar').style.width = data.content_score + '%';
+      document.getElementById('authorityBar').style.width = data.authority_score + '%';
+
+      // Issues
+      const issuesGrid = document.getElementById('issuesGrid');
+      issuesGrid.innerHTML = (data.issues || []).map(issue => `
+        <div class="issue-item ${issue.type}">
+          <span class="issue-icon">${issue.type === 'critical' ? '🔴' : issue.type === 'high' ? '🟡' : issue.type === 'medium' ? '🔵' : '⚪'}</span>
+          <span class="issue-text">${issue.text}</span>
+          <span class="issue-tag">${issue.tag}</span>
+        </div>
+      `).join('') || '<p style="color:var(--accent);font-size:14px;">✅ No critical issues found!</p>';
+
+      // Keywords
+      const keywordsBody = document.getElementById('keywordsBody');
+      keywordsBody.innerHTML = (data.keywords || []).map(kw => `
+        <tr>
+          <td>${kw.word}</td>
+          <td>${kw.count}</td>
+          <td>${kw.density}%</td>
+          <td><div class="keyword-bar"><div class="keyword-bar-fill" style="width:${Math.min(100, kw.count * 5)}%"></div></div></td>
+        </tr>
+      `).join('');
+
+      // Recommendations
+      const recsGrid = document.getElementById('recsGrid');
+      recsGrid.innerHTML = (data.recommendations || []).map(rec => `
+        <div class="rec-item">
+          <div class="rec-header">
+            <span class="rec-priority ${rec.priority}">${rec.priority}</span>
+            <span class="rec-impact">${rec.estimated_impact}</span>
+          </div>
+          <div class="rec-title">${rec.title}</div>
+          <div class="rec-desc">${rec.description}</div>
+          <span class="rec-tag">${rec.tag}</span>
+        </div>
+      `).join('');
+
+      // Learnings log
+      const learningsLog = document.getElementById('learningsLog');
+      learningsLog.innerHTML = (data.recommendations || []).slice(0, 3).map((rec, i) => `
+        <div class="learning-item">
+          <span class="learning-icon">✓</span>
+          <span>Learned: <strong>${rec.title}</strong> → priority ${rec.priority}</span>
+          <span class="learning-rate">${rec.estimated_impact}</span>
+        </div>
+      `).join('');
+    }
+
+    async function loadStats() {
+      const res = await fetch('/api/stats');
+      const stats = await res.json();
+      document.getElementById('neuralCount').textContent = stats.insights_count || 0;
+      document.getElementById('totalAnalyses').textContent = stats.total_analyses || 0;
+      document.getElementById('totalInsights').textContent = stats.insights_count || 0;
+      document.getElementById('avgImprovement').textContent = (stats.avg_score_improvement || 0) + '%';
+    }
+
+    async function loadHistory() {
+      const res = await fetch('/api/history');
+      const history = await res.json();
+      const historyBody = document.getElementById('historyBody');
+      historyBody.innerHTML = history.map(h => {
+        const scoreClass = h.overall_score >= 70 ? 'good' : h.overall_score >= 40 ? 'medium' : 'bad';
+        const date = new Date(h.created_at).toLocaleDateString();
+        return `<tr>
+          <td><a href="#" class="history-url" title="${h.url}">${h.url}</a></td>
+          <td><span class="history-score ${scoreClass}">${h.overall_score}</span></td>
+          <td>${date}</td>
+        </tr>`;
+      }).join('') || '<tr><td colspan="3" style="color:var(--text2);text-align:center;">No analyses yet</td></tr>';
+    }
+
+    async function loadInsights() {
+      const res = await fetch('/api/insights');
+      const insights = await res.json();
+      const insightsGrid = document.getElementById('insightsGrid');
+      
+      if (insights.length === 0) {
+        insightsGrid.innerHTML = '<p style="color:var(--text2);font-size:14px;grid-column:1/-1;">Engine still learning... Run more analyses to build insights.</p>';
+        return;
+      }
+
+      insightsGrid.innerHTML = insights.map(ins => `
+        <div class="insight-card">
+          <div class="insight-pattern">${ins.pattern_tag}</div>
+          <div class="insight-rec">${ins.recommendation}</div>
+          <div class="insight-stats">
+            <span>Samples: ${ins.sample_size}</span>
+            <span>Success: ${(ins.success_rate * 100).toFixed(0)}%</span>
+          </div>
+          <div class="success-bar"><div class="success-bar-fill" style="width:${ins.success_rate * 100}%"></div></div>
+        </div>
+      `).join('');
+    }
+
+    // Initial load
+    loadStats();
+    loadHistory();
+    loadInsights();
+  </script>
+</body>
+</html>
