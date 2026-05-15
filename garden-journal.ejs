@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Garden Journal — FitGardener</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav>
+    <div class="nav-inner">
+      <a href="/" class="logo">FitGardener</a>
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/garden-journal">Journal</a>
+        <a href="/about">About</a>
+        <a href="/tips">Tips</a>
+        <a href="/contact">Contact</a>
+      </div>
+      <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+    </div>
+  </nav>
+
+  <div class="page-header">
+    <div class="container">
+      <h1>Garden Journal</h1>
+      <p>Season-by-season notes on what worked, what failed, and what I'm trying next.</p>
+    </div>
+  </div>
+
+  <section class="journal" style="padding-top: 60px;">
+    <div class="container">
+      <div class="posts-grid">
+        <% site.posts.forEach(function(post) { %>
+          <a href="/<%= post.slug %>" class="post-card fade-in">
+            <div class="post-card-img" style="background-image: url('https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&q=80')"></div>
+            <div class="post-card-body">
+              <div class="post-date"><%= post.date %></div>
+              <h3><%= post.title %></h3>
+              <p><%= post.excerpt %></p>
+              <span class="post-read">Read more</span>
+            </div>
+          </a>
+        <% }); %>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">FitGardener</div>
+        <div class="footer-tagline">Growing things, one season at a time.</div>
+      </div>
+      <div class="footer-nav">
+        <a href="/">Home</a>
+        <a href="/garden-journal">Journal</a>
+        <a href="/about">About</a>
+        <a href="/tips">Tips</a>
+        <a href="/contact">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <%= new Date().getFullYear() %> FitGardener · Edmonton, Alberta</span>
+    </div>
+  </footer>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

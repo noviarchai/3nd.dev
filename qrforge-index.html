@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QRForge</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #0a0a0f; color: #e8e8f0; font-family: 'JetBrains Mono', monospace; min-height: 100vh; }
+    
+    .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+    
+    /* Login */
+    .login-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; }
+    .login-box { background: #12121a; border: 1px solid #9D4EDD; border-radius: 12px; padding: 40px; width: 100%; max-width: 400px; text-align: center; }
+    .login-box h1 { font-size: 28px; color: #9D4EDD; margin-bottom: 8px; }
+    .login-box p { color: #8888a0; margin-bottom: 24px; font-size: 14px; }
+    .login-box input { width: 100%; padding: 12px 16px; margin-bottom: 12px; background: #1a1a25; border: 1px solid #252535; border-radius: 8px; color: #e8e8f0; font-size: 14px; outline: none; }
+    .login-box input:focus { border-color: #9D4EDD; }
+    .login-box button { width: 100%; padding: 12px; background: #9D4EDD; color: #fff; border: none; border-radius: 8px; font-size: 14px; cursor: pointer; font-weight: 600; }
+    .login-box button:hover { background: #b366e6; }
+    .login-error { color: #FF5252; margin-top: 12px; font-size: 13px; display: none; }
+    
+    /* App */
+    .app-screen { display: none; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-bottom: 1px solid #252535; margin-bottom: 24px; }
+    .header h1 { font-size: 20px; color: #9D4EDD; }
+    .logout-btn { background: #1a1a25; border: 1px solid #252535; color: #8888a0; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 12px; }
+    .logout-btn:hover { border-color: #9D4EDD; color: #9D4EDD; }
+    
+    /* Create form */
+    .create-section { background: #12121a; border: 1px solid #252535; border-radius: 12px; padding: 24px; margin-bottom: 24px; }
+    .create-section h2 { font-size: 16px; color: #e8e8f0; margin-bottom: 16px; }
+    .form-row { display: flex; gap: 12px; margin-bottom: 12px; }
+    .form-row input, .form-row select { flex: 1; padding: 10px 14px; background: #1a1a25; border: 1px solid #252535; border-radius: 6px; color: #e8e8f0; font-size: 13px; outline: none; }
+    .form-row input:focus, .form-row select:focus { border-color: #9D4EDD; }
+    .form-row select { cursor: pointer; }
+    .create-btn { width: 100%; padding: 12px; background: #9D4EDD; color: #fff; border: none; border-radius: 8px; font-size: 14px; cursor: pointer; font-weight: 600; }
+    .create-btn:hover { background: #b366e6; }
+    
+    /* QR list */
+    .qr-list-section { }
+    .qr-list-section h2 { font-size: 16px; margin-bottom: 12px; }
+    .qr-empty { text-align: center; padding: 40px; color: #555568; }
+    .qr-item { display: flex; gap: 16px; align-items: center; background: #12121a; border: 1px solid #252535; border-radius: 8px; padding: 16px; margin-bottom: 10px; }
+    .qr-item:hover { border-color: #9D4EDD; }
+    .qr-img { width: 64px; height: 64px; border-radius: 6px; background: #fff; }
+    .qr-info { flex: 1; }
+    .qr-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+    .qr-meta { font-size: 12px; color: #8888a0; }
+    .qr-link { font-size: 11px; color: #9D4EDD; margin-top: 4px; }
+    .qr-delete { background: #1a1a25; border: 1px solid #252535; color: #8888a0; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 12px; }
+    .qr-delete:hover { border-color: #FF5252; color: #FF5252; }
+    
+    /* Stats */
+    .stats-row { display: flex; gap: 12px; margin-bottom: 24px; }
+    .stat-box { flex: 1; background: #12121a; border: 1px solid #252535; border-radius: 8px; padding: 16px; text-align: center; }
+    .stat-val { font-size: 24px; font-weight: 700; color: #9D4EDD; }
+    .stat-label { font-size: 11px; color: #8888a0; margin-top: 4px; }
+    
+    /* Toast */
+    .toast { position: fixed; bottom: 20px; right: 20px; background: #12121a; border: 1px solid #9D4EDD; padding: 12px 20px; border-radius: 8px; font-size: 13px; display: none; z-index: 9999; }
+    .toast.error { border-color: #FF5252; }
+    
+    /* Error msg */
+    .api-error { background: #1a1a25; border: 1px solid #FF5252; color: #FF5252; padding: 10px; border-radius: 6px; margin-bottom: 12px; font-size: 13px; display: none; }
+  </style>
+</head>
+<body>
+
+<!-- Login Screen -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-box">
+    <h1>QRForge</h1>
+    <p>Sign in to manage your QR codes</p>
+    <input type="email" id="loginEmail" placeholder="Email" value="dan@3nd.dev">
+    <input type="password" id="loginPassword" placeholder="Password" value="QrForge2024!Dan">
+    <button onclick="doLogin()">Sign In</button>
+    <div class="login-error" id="loginError">Invalid credentials</div>
+  </div>
+</div>
+
+<!-- App Screen -->
+<div class="app-screen" id="appScreen">
+  <div class="container">
+    <div class="header">
+      <h1>QRForge</h1>
+      <button class="logout-btn" onclick="doLogout()">Logout</button>
+    </div>
+    
+    <!-- Stats -->
+    <div class="stats-row" id="statsRow">
+      <div class="stat-box"><div class="stat-val" id="statTotal">-</div><div class="stat-label">Total QRs</div></div>
+      <div class="stat-box"><div class="stat-val" id="statScans">-</div><div class="stat-label">Total Scans</div></div>
+      <div class="stat-box"><div class="stat-val" id="statToday">-</div><div class="stat-label">Today</div></div>
+    </div>
+    
+    <!-- Create -->
+    <div class="create-section">
+      <h2>Create QR Code</h2>
+      <div class="api-error" id="createError"></div>
+      <div class="form-row">
+        <input type="text" id="qrTitle" placeholder="Title (e.g. My Website)">
+        <select id="qrType">
+          <option value="url">URL</option>
+          <option value="wifi">WiFi</option>
+          <option value="vcard">vCard</option>
+          <option value="sms">SMS</option>
+          <option value="email">Email</option>
+          <option value="text">Text</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <input type="text" id="qrContent" placeholder="URL or content (e.g. https://3nd.dev)">
+      </div>
+      <button class="create-btn" onclick="doCreate()">Generate QR Code</button>
+    </div>
+    
+    <!-- List -->
+    <div class="qr-list-section">
+      <h2>Your QR Codes</h2>
+      <div id="qrList">
+        <div class="qr-empty">No QR codes yet. Create one above!</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+const API = '/api';
+
+async function login(email, password) {
+  const r = await fetch(API + '/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, password })
+  });
+  return r.json();
+}
+
+async function me() {
+  const r = await fetch(API + '/me');
+  return r.json();
+}
+
+async function logout() {
+  await fetch(API + '/logout', { method: 'POST' });
+}
+
+async function createQR(title, type, content) {
+  const r = await fetch(API + '/create', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ title, type, content })
+  });
+  return r.json();
+}
+
+async function listQRs() {
+  const r = await fetch(API + '/list');
+  return r.json();
+}
+
+async function deleteQR(id) {
+  const r = await fetch(API + '/delete/' + id, { method: 'DELETE' });
+  return r.json();
+}
+
+async function getStats() {
+  const r = await fetch(API + '/stats');
+  return r.json();
+}
+
+function showToast(msg, isError = false) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast' + (isError ? ' error' : '');
+  t.style.display = 'block';
+  setTimeout(() => { t.style.display = 'none'; }, 3000);
+}
+
+function showError(el, msg) {
+  el.textContent = msg;
+  el.style.display = 'block';
+  setTimeout(() => { el.style.display = 'none'; }, 4000);
+}
+
+async function doLogin() {
+  const email = document.getElementById('loginEmail').value;
+  const password = document.getElementById('loginPassword').value;
+  const errEl = document.getElementById('loginError');
+  
+  try {
+    const data = await login(email, password);
+    if (data.error) {
+      errEl.style.display = 'block';
+      return;
+    }
+    errEl.style.display = 'none';
+    showApp();
+    loadAll();
+  } catch (e) {
+    errEl.textContent = 'Connection error';
+    errEl.style.display = 'block';
+  }
+}
+
+async function doLogout() {
+  await logout();
+  document.getElementById('loginScreen').style.display = 'flex';
+  document.getElementById('appScreen').style.display = 'none';
+}
+
+async function doCreate() {
+  const title = document.getElementById('qrTitle').value.trim();
+  const type = document.getElementById('qrType').value;
+  const content = document.getElementById('qrContent').value.trim();
+  const errEl = document.getElementById('createError');
+  
+  if (!title || !content) {
+    showError(errEl, 'Title and content are required');
+    return;
+  }
+  
+  try {
+    const data = await createQR(title, type, content);
+    if (data.error) {
+      showError(errEl, data.error);
+      return;
+    }
+    // Clear form
+    document.getElementById('qrTitle').value = '';
+    document.getElementById('qrContent').value = '';
+    showToast('QR created!');
+    await loadList();
+    await loadStats();
+  } catch (e) {
+    showError(errEl, 'Failed to create QR');
+  }
+}
+
+async function doDelete(id) {
+  if (!confirm('Delete this QR?')) return;
+  try {
+    await deleteQR(id);
+    showToast('QR deleted');
+    await loadList();
+    await loadStats();
+  } catch (e) {
+    showToast('Failed to delete', true);
+  }
+}
+
+async function loadList() {
+  try {
+    const data = await listQRs();
+    const el = document.getElementById('qrList');
+    if (!data.qrs || data.qrs.length === 0) {
+      el.innerHTML = '<div class="qr-empty">No QR codes yet. Create one above!</div>';
+      return;
+    }
+    el.innerHTML = data.qrs.map(qr => `
+      <div class="qr-item">
+        <img src="/qr/${qr.short_id}.png" class="qr-img" alt="${qr.title}">
+        <div class="qr-info">
+          <div class="qr-title">${qr.title}</div>
+          <div class="qr-meta">${qr.type} · ${qr.views} scans</div>
+          <div class="qr-link">https://qr.3nd.dev/r/${qr.short_id}</div>
+        </div>
+        <button class="qr-delete" onclick="doDelete(${qr.id})">Delete</button>
+      </div>
+    `).join('');
+  } catch (e) {
+    document.getElementById('qrList').innerHTML = '<div class="qr-empty">Failed to load QR codes</div>';
+  }
+}
+
+async function loadStats() {
+  try {
+    const data = await getStats();
+    document.getElementById('statTotal').textContent = data.total || 0;
+    document.getElementById('statScans').textContent = data.scans || 0;
+    document.getElementById('statToday').textContent = data.today || 0;
+  } catch (e) {
+    // ignore
+  }
+}
+
+async function loadAll() {
+  await loadStats();
+  await loadList();
+}
+
+async function showApp() {
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('appScreen').style.display = 'block';
+}
+
+async function init() {
+  try {
+    const data = await me();
+    if (data.user) {
+      showApp();
+      loadAll();
+    }
+  } catch (e) {
+    // not logged in
+  }
+}
+
+init();
+</script>
+</body>
+</html>

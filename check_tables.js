@@ -1,0 +1,10 @@
+const db = require('better-sqlite3')('/var/www/lab.3nd.dev/data/lab.db');
+const tbl = db.prepare("SELECT sql FROM sqlite_master WHERE type='table' AND name='analyses'").get();
+console.log('analyses:', tbl ? tbl.sql : 'not found');
+const tbl2 = db.prepare("SELECT sql FROM sqlite_master WHERE type='table' AND name='insights'").get();
+console.log('insights:', tbl2 ? tbl2.sql : 'not found');
+const tbl3 = db.prepare("SELECT sql FROM sqlite_master WHERE type='table' AND name='learnings'").get();
+console.log('learnings:', tbl3 ? tbl3.sql : 'not found');
+const tbl4 = db.prepare("SELECT sql FROM sqlite_master WHERE type='table' AND name='engine_stats'").get();
+console.log('engine_stats:', tbl4 ? tbl4.sql : 'not found');
+db.close();

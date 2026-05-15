@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beauty Lashes — Premium Lash Extensions in Edmonton</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" href="/images/logo.jpg" type="image/jpeg">
+</head>
+<body>
+  <nav>
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <div style="background:#fff;padding:6px 10px;border-radius:10px;border:2px solid var(--border);display:inline-block;margin:-6px 0">
+          <img src="/images/logo.jpg" alt="Beauty Lashes">
+        </div>
+      </a>
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/services">Services</a>
+        <a href="/gallery">Gallery</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+        <a href="/booking" class="nav-cta">Book Now</a>
+      </div>
+      <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-sparkles"></div>
+    <div class="hero-content">
+      <div style="background:#fff;border-radius:20px;padding:24px;display:inline-block;margin-bottom:24px;box-shadow:0 4px 24px rgba(0,0,0,0.1);border:2px solid var(--border)">
+        <img src="/images/logo.jpg" alt="Beauty Lashes" class="hero-logo" style="height:180px;border-radius:12px">
+      </div>
+      <div class="hero-eyebrow">Edmonton's Premier Lash Studio</div>
+      <h1>Wake Up With <span>Flawless</span> Lashes</h1>
+      <p class="hero-sub">Expert lash extensions tailored to your unique eye shape, lifestyle, and desired drama.</p>
+      <div class="hero-actions">
+        <a href="/booking" class="btn btn-pink">Book Appointment</a>
+        <a href="/services" class="btn btn-outline">View Services</a>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <span>Discover</span>
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 2v10M2 7l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </div>
+  </section>
+
+  <div class="intro-strip">
+    <div class="intro-strip-inner">
+      <div class="intro-strip-item"><span>📍</span> Edmonton, Alberta</div>
+      <div class="intro-strip-item"><span>📅</span> Tue – Sat</div>
+      <div class="intro-strip-item"><span>⭐</span> 5-Star Rated</div>
+      <div class="intro-strip-item"><span>✨</span> Premium Lashes</div>
+    </div>
+  </div>
+
+  <section class="services">
+    <div class="container">
+      <div class="services-header">
+        <div class="section-label">Our Services</div>
+        <h2 class="section-title">Lash Services</h2>
+        <p class="section-sub">From natural classic sets to show-stopping mega volume — find your perfect look.</p>
+      </div>
+      <div class="services-grid">
+        <% site.services.forEach(function(s) { if(s.enabled) { %>
+          <div class="service-card fade-in">
+            <div class="service-name"><%= s.name %></div>
+            <div class="service-desc"><%= s.description %></div>
+            <div class="service-meta">
+              <span class="service-price">$<%= s.price %></span>
+              <span class="service-duration"><%= s.duration %></span>
+            </div>
+            <a href="/booking?service=<%= encodeURIComponent(s.name) %>" class="btn service-book">Book Now</a>
+          </div>
+        <% }}); %>
+      </div>
+    </div>
+  </section>
+
+  <section class="why-us">
+    <div class="container">
+      <div class="services-header">
+        <div class="section-label">Why Beauty Lashes</div>
+        <h2 class="section-title">The Difference</h2>
+      </div>
+      <div class="why-us-grid">
+        <% site.whyUs.forEach(function(w) { %>
+          <div class="why-card fade-in">
+            <div class="why-icon"><%= w.icon %></div>
+            <h3><%= w.title %></h3>
+            <p><%= w.text %></p>
+          </div>
+        <% }); %>
+      </div>
+    </div>
+  </section>
+
+  <section class="testimonials">
+    <div class="container">
+      <div class="testimonials-header">
+        <div class="section-label">Love Letters</div>
+        <h2 class="section-title">What Clients Say</h2>
+      </div>
+      <div class="testimonials-grid">
+        <% site.testimonials.forEach(function(t) { if(t.visible) { %>
+          <div class="testimonial-card fade-in">
+            <div class="testimonial-stars">★★★★★</div>
+            <div class="testimonial-text">"<%= t.text %>"</div>
+            <div class="testimonial-author">— <%= t.name %></div>
+          </div>
+        <% }}); %>
+      </div>
+    </div>
+  </section>
+
+  <section class="booking-cta">
+    <div class="container">
+      <div class="section-label" style="color:#fff">Ready?</div>
+      <h2>Book Your Appointment Today</h2>
+      <p>Slots fill up quickly — reserve yours now and get ready to flutter.</p>
+      <a href="/booking" class="btn" style="position:relative">Book Now →</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand-name">Beauty Lashes</div>
+          <div class="footer-tagline">Premium lash extensions in Edmonton. Every set, a masterpiece.</div>
+          <div class="footer-social">
+            <a href="<%= site.business.social.instagram %>">Instagram</a>
+            <a href="<%= site.business.social.facebook %>">Facebook</a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-heading">Quick Links</div>
+          <div class="footer-links">
+            <a href="/">Home</a>
+            <a href="/services">Services</a>
+            <a href="/gallery">Gallery</a>
+            <a href="/about">About</a>
+            <a href="/booking">Book Now</a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-heading">Contact</div>
+          <div class="footer-links">
+            <a href="tel:<%= site.business.phone %>"><%= site.business.phone %></a>
+            <a href="mailto:<%= site.business.email %>"><%= site.business.email %></a>
+            <span style="font-size:14px"><%= site.business.hours %></span>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <%= new Date().getFullYear() %> Beauty Lashes. All rights reserved.</span>
+        <a href="/policies">Policies</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

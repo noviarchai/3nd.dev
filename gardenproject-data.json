@@ -1,0 +1,71 @@
+{
+  "hero": {
+    "title": "FitGardener",
+    "subtitle": "Where fitness meets the garden",
+    "tagline": "Growing strength, growing greens — one bed at a time."
+  },
+  "about": {
+    "title": "About Dan",
+    "bio": "Gardening enthusiast and fitness junkie. I started FitGardener to document my journey building a productive garden while staying active and healthy. No fancy degrees — just dirty hands, hard work, and a passion for growing my own food.",
+    "location": "Edmonton, Alberta",
+    "specialties": ["Vegetable gardening", "Cold climate growing", "Composting", "Raised bed systems", "Fitness & garden routines"]
+  },
+  "garden": {
+    "title": "The Garden",
+    "description": "A work in progress. Each season I expand the plot, improve the soil, and try something new.",
+    "setup": "2022",
+    "size": "400 sq ft",
+    "beds": 6,
+    "highlight": "Tomatoes, zucchini, kale, herbs, and strawberries every summer."
+  },
+  "contact": {
+    "title": "Get in Touch",
+    "email": "dan@fitgardener.com",
+    "note": "Have a question about gardening in cold climates? Send it over — I reply when I can."
+  },
+  "pages": [
+    {
+      "slug": "about",
+      "title": "About",
+      "content": "Learn more about Dan's story, background, and why FitGardener exists."
+    },
+    {
+      "slug": "garden-journal",
+      "title": "Garden Journal",
+      "content": "Season-by-season notes on what worked, what failed, and what I'm trying next."
+    },
+    {
+      "slug": "tips",
+      "title": "Growing Tips",
+      "content": "Practical tips for cold climate gardeners. What to plant when, how to extend your season, and simple tricks that actually work."
+    },
+    {
+      "slug": "contact",
+      "title": "Contact",
+      "content": "Got questions? Want to collaborate? Reach out."
+    }
+  ],
+  "posts": [
+    {
+      "date": "2026-05-01",
+      "slug": "spring-planting-2026",
+      "title": "Spring Planting 2026 — What's Going In",
+      "excerpt": "Another year, another shot at the perfect garden. Here's the plan for this season.",
+      "content": "Spring is finally here and the soil is warming up enough to work with. This year I'm trying a few new things: a potato patch in raised beds, more herbs along the south side of the house, and a cold frame for early season greens...\n\nThe compost is ready to work in. Last year's kitchen scraps broke down beautifully. Time to give back to the beds."
+    },
+    {
+      "date": "2026-03-15",
+      "slug": "seed-starting-indoors",
+      "title": "Starting Seeds Indoors — What Actually Works",
+      "excerpt": "After three years of trial and error, here are the only tips you actually need.",
+      "content": "Seed starting doesn't need to be complicated. But most guides make it sound like you need a whole grow room setup. You don't.\n\nI start everything under a $40 grow light from Amazon, in solo cups with drainage holes, on a wire rack over a heater vent. That's it. No fancy humidity domes, no heating mats except for peppers...\n\nThe biggest lesson: less is more. Don't overwater. Don't overfeed. Give them light and walk away."
+    },
+    {
+      "date": "2026-01-10",
+      "slug": "winter-garden-reflection",
+      "title": "What I Learned From Last Year's Garden",
+      "excerpt": "The 2025 season was a mixed bag. Here's the honest recap.",
+      "content": "2025 was my most ambitious garden yet — 6 raised beds, a new compost bin, and my first real attempt at winter gardening with a cold frame.\n\nThe cold frame failed. The tomatoes were incredible. The zucchini overwhelmed everyone I knew. The kale kept producing into November.\n\nBiggest win: no-dig beds. I layered cardboard, compost, and straw in the fall. Spring soil was dark, crumbly, and ready to plant with zero digging.\n\nBiggest fail: starting too many pepper varieties without labeling them. I still don't know what half my pepper plants were."
+    }
+  ]
+}

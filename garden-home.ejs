@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= site.hero.title %> — <%= site.hero.subtitle %></title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌱</text></svg>">
+</head>
+<body>
+  <nav>
+    <div class="nav-inner">
+      <a href="/" class="logo"><%= site.hero.title %></a>
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/garden-journal">Journal</a>
+        <a href="/about">About</a>
+        <a href="/tips">Tips</a>
+        <a href="/contact">Contact</a>
+      </div>
+      <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-gradient"></div>
+    <div class="hero-content">
+      <div class="hero-label">Edmonton, Alberta</div>
+      <h1><%= site.hero.title %></h1>
+      <p class="hero-sub"><%= site.hero.tagline %></p>
+      <div class="hero-actions">
+        <a href="/garden-journal" class="hero-btn hero-btn-primary">Read the Journal</a>
+        <a href="/about" class="hero-btn hero-btn-outline">About Dan</a>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      <span>Scroll</span>
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+  </header>
+
+  <section class="intro">
+    <div class="container">
+      <div class="intro-grid">
+        <div class="intro-text">
+          <div class="section-label">The Story</div>
+          <h2 class="section-title"><%= site.about.title %></h2>
+          <p><%= site.about.bio %></p>
+
+          <div class="intro-meta">
+            <div class="intro-meta-item">
+              <span class="intro-meta-label">Location</span>
+              <span class="intro-meta-value"><%= site.about.location %></span>
+            </div>
+            <div class="intro-meta-item">
+              <span class="intro-meta-label">Focus</span>
+              <span class="intro-meta-value">Vegetable Gardening</span>
+            </div>
+          </div>
+
+          <div class="specialties">
+            <% site.about.specialties.forEach(function(s) { %>
+              <span class="tag"><%= s %></span>
+            <% }); %>
+          </div>
+
+          <a href="/about" class="view-all-btn" style="display:inline-flex;width:auto;">Learn More →</a>
+        </div>
+
+        <div class="intro-stats">
+          <div class="stat-card fade-in">
+            <div class="stat-icon">🌿</div>
+            <div class="stat-info">
+              <div class="stat-num"><%= site.garden.setup %></div>
+              <div class="stat-label">Garden Started</div>
+            </div>
+          </div>
+          <div class="stat-card fade-in">
+            <div class="stat-icon">📐</div>
+            <div class="stat-info">
+              <div class="stat-num"><%= site.garden.size %></div>
+              <div class="stat-label">Garden Size</div>
+            </div>
+          </div>
+          <div class="stat-card fade-in">
+            <div class="stat-icon">🛏️</div>
+            <div class="stat-info">
+              <div class="stat-num"><%= site.garden.beds %></div>
+              <div class="stat-label">Raised Beds</div>
+            </div>
+          </div>
+          <div class="stat-card fade-in">
+            <div class="stat-icon">🍅</div>
+            <div class="stat-info">
+              <div class="stat-num">Seasonal</div>
+              <div class="stat-label">In-season Harvests</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="garden-banner">
+    <div class="garden-banner-inner">
+      <div class="garden-img garden-img-1"></div>
+      <div class="garden-img garden-img-2"></div>
+      <div class="garden-img garden-img-3"></div>
+      <div class="garden-banner-text">
+        <h2><%= site.garden.title %></h2>
+        <p><%= site.garden.highlight %></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="journal">
+    <div class="container">
+      <div class="section-label">Garden Journal</div>
+      <h2 class="section-title">From the Garden</h2>
+      <p class="section-sub">Season-by-season notes on what worked, what failed, and what I'm trying next.</p>
+
+      <div class="posts-grid">
+        <% site.posts.forEach(function(post, i) { %>
+          <a href="/<%= post.slug %>" class="post-card fade-in">
+            <div class="post-card-img" style="background-image: url('https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&q=80')"></div>
+            <div class="post-card-body">
+              <div class="post-date"><%= post.date %></div>
+              <h3><%= post.title %></h3>
+              <p><%= post.excerpt %></p>
+              <span class="post-read">Read more</span>
+            </div>
+          </a>
+        <% }); %>
+      </div>
+
+      <div class="view-all">
+        <a href="/garden-journal" class="view-all-btn">View All Posts →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="container">
+      <h2>Questions about cold climate gardening?</h2>
+      <p>Have a tip to share or want to collaborate? Reach out anytime.</p>
+      <a href="/contact" class="cta-btn">Get in Touch →</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand"><%= site.hero.title %></div>
+        <div class="footer-tagline"><%= site.hero.tagline %></div>
+      </div>
+      <div class="footer-nav">
+        <a href="/">Home</a>
+        <a href="/garden-journal">Journal</a>
+        <a href="/about">About</a>
+        <a href="/tips">Tips</a>
+        <a href="/contact">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <%= new Date().getFullYear() %> FitGardener · <%= site.about.location %></span>
+      <span>Growing things, one season at a time.</span>
+    </div>
+  </footer>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>
