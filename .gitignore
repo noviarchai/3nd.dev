@@ -1,0 +1,21 @@
+# Sensitive credentials — never commit
+.secrets
+.env
+.env.*
+*.env
+creds.*
+*.cred
+*password*
+*secret*
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Node
+node_modules/
+.cache/
